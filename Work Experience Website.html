@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dean McDougall — Senior Product Manager</title>
+<meta name="description" content="Interactive product management portfolio with de-identified, working rebuilds of tools Dean McDougall has led.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F5F7;
+    --surface:#FFFFFF;
+    --surface-alt:#EBEEF2;
+    --ink:#1B2230;
+    --ink-muted:#545C6B;
+    --line:#D9DCE3;
+    --accent:#1F6F5C;
+    --accent-strong:#164F41;
+    --accent-ink:#F5FBF8;
+    --accent-soft:#DCEEE8;
+    --console-bg:#131B22;
+    --console-line:#2A3944;
+    --console-ink:#E7EDEE;
+    --console-muted:#8CA0A8;
+    --status-approve:#2E7D4F;
+    --status-approve-soft:#E1F1E6;
+    --status-refer:#A9700F;
+    --status-refer-soft:#F6EAD4;
+    --status-decline:#AE3830;
+    --status-decline-soft:#F5E2E0;
+    --shadow: 0 1px 2px rgba(20,26,33,.04), 0 8px 24px -12px rgba(20,26,33,.18);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#10151C;
+      --surface:#171F28;
+      --surface-alt:#1E2831;
+      --ink:#E7EAEE;
+      --ink-muted:#9AA6B4;
+      --line:#2B3642;
+      --accent:#54D6A6;
+      --accent-strong:#7FE6BF;
+      --accent-ink:#0A1712;
+      --accent-soft:#183A32;
+      --console-bg:#0B1116;
+      --console-line:#243139;
+      --console-ink:#E7EDEE;
+      --console-muted:#7E8F97;
+      --status-approve:#57CB84;
+      --status-approve-soft:#173323;
+      --status-refer:#E7B15C;
+      --status-refer-soft:#3A2E17;
+      --status-decline:#E67D75;
+      --status-decline-soft:#3A1E1B;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 30px -14px rgba(0,0,0,.6);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#10151C;
+    --surface:#171F28;
+    --surface-alt:#1E2831;
+    --ink:#E7EAEE;
+    --ink-muted:#9AA6B4;
+    --line:#2B3642;
+    --accent:#54D6A6;
+    --accent-strong:#7FE6BF;
+    --accent-ink:#0A1712;
+    --accent-soft:#183A32;
+    --console-bg:#0B1116;
+    --console-line:#243139;
+    --console-ink:#E7EDEE;
+    --console-muted:#7E8F97;
+    --status-approve:#57CB84;
+    --status-approve-soft:#173323;
+    --status-refer:#E7B15C;
+    --status-refer-soft:#3A2E17;
+    --status-decline:#E67D75;
+    --status-decline-soft:#3A1E1B;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 30px -14px rgba(0,0,0,.6);
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    padding-inline:20px;
+  }
+  @media (min-width:640px){ body{ padding-inline:32px; } }
+
+  h1,h2,h3,h4{
+    font-family:'Fraunces', ui-serif, Georgia, serif;
+    font-weight:600;
+    line-height:1.12;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+    font-size:.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+    font-weight:600;
+  }
+  .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  a{ color:inherit; }
+  button{ font-family:inherit; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+  }
+
+  .wrap{ max-width:1080px; margin-inline:auto; }
+  .wrap-narrow{ max-width:760px; margin-inline:auto; }
+  section{ padding-block:64px; border-bottom:1px solid var(--line); }
+  @media (min-width:900px){ section{ padding-block:96px; } }
+  section:last-of-type{ border-bottom:none; }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    margin-inline:-20px;
+    padding-inline:20px;
+  }
+  @media (min-width:640px){ header.nav{ margin-inline:-32px; padding-inline:32px; } }
+  .nav-inner{
+    max-width:1080px; margin-inline:auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:16px; gap:16px;
+  }
+  .nav-mark{
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem;
+    display:flex; align-items:baseline; gap:8px; white-space:nowrap;
+  }
+  .nav-mark span{ color:var(--ink-muted); font-weight:400; font-size:.85rem; font-family:'Work Sans',sans-serif; }
+  .nav-links{ display:flex; gap:24px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    text-decoration:none; font-size:.9rem; color:var(--ink-muted); font-weight:500;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{ color:var(--accent); }
+  .nav-cta{
+    border:1px solid var(--line); border-radius:999px; padding:8px 16px;
+    font-size:.85rem; font-weight:600; text-decoration:none; color:var(--ink);
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ border-color:var(--accent); color:var(--accent); }
+  @media (max-width:760px){ .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding-block-start:56px; }
+  .hero-grid{ display:grid; gap:40px; }
+  @media (min-width:900px){ .hero-grid{ grid-template-columns:1.3fr .9fr; align-items:end; } }
+  .hero h1{ font-size:clamp(2.1rem, 4.6vw, 3.4rem); margin-top:14px; }
+  .hero .lede{ margin-top:20px; font-size:1.08rem; color:var(--ink-muted); max-width:52ch; }
+  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 20px; border-radius:10px; font-weight:600; font-size:.92rem;
+    text-decoration:none; border:1px solid transparent; cursor:pointer;
+  }
+  .btn-primary{ background:var(--accent); color:var(--accent-ink); }
+  .btn-primary:hover{ background:var(--accent-strong); }
+  .btn-ghost{ border-color:var(--line); color:var(--ink); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .stat-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:24px; box-shadow:var(--shadow);
+    display:grid; gap:18px;
+  }
+  .stat{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .stat:not(:last-child){ padding-bottom:16px; border-bottom:1px solid var(--line); }
+  .stat-num{ font-family:'IBM Plex Mono',monospace; font-size:1.6rem; font-weight:600; color:var(--accent); font-variant-numeric:tabular-nums; }
+  .stat-label{ font-size:.82rem; color:var(--ink-muted); max-width:20ch; text-align:right; }
+
+  /* ---------- Section heads ---------- */
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .section-head h2{ font-size:clamp(1.6rem,3vw,2.1rem); margin-top:10px; }
+  .section-head p{ margin-top:12px; color:var(--ink-muted); }
+
+  /* ---------- Timeline ---------- */
+  .timeline{ position:relative; padding-left:28px; }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:2px;
+    background:var(--line);
+  }
+  .t-item{ position:relative; padding-bottom:28px; }
+  .t-item:last-child{ padding-bottom:0; }
+  .t-dot{
+    position:absolute; left:-28px; top:6px; width:12px; height:12px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--accent);
+  }
+  .t-item.current .t-dot{ background:var(--accent); }
+  .t-head{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+    padding:2px 0;
+  }
+  .t-role{ font-family:'Fraunces',serif; font-weight:600; font-size:1.12rem; }
+  .t-org{ color:var(--accent); font-weight:600; }
+  .t-meta{ font-size:.82rem; color:var(--ink-muted); margin-top:4px; font-family:'IBM Plex Mono',monospace; }
+  .t-chev{ flex:0 0 auto; color:var(--ink-muted); transition:transform .2s ease; margin-top:6px; }
+  .t-item[data-open="true"] .t-chev{ transform:rotate(180deg); }
+  .t-body{
+    display:grid; grid-template-rows:0fr; transition:grid-template-rows .25s ease;
+  }
+  .t-item[data-open="true"] .t-body{ grid-template-rows:1fr; }
+  .t-body-inner{ overflow:hidden; }
+  .t-body ul{ margin:14px 0 0; padding-left:20px; color:var(--ink-muted); display:grid; gap:8px; }
+  .t-body li::marker{ color:var(--accent); }
+
+  /* ---------- Case studies ---------- */
+  .filter-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:36px; }
+  .chip{
+    border:1px solid var(--line); background:var(--surface); color:var(--ink-muted);
+    border-radius:999px; padding:8px 16px; font-size:.84rem; font-weight:600; cursor:pointer;
+  }
+  .chip[aria-pressed="true"]{ background:var(--accent-soft); border-color:var(--accent); color:var(--accent-strong); }
+  .case{
+    background:var(--surface); border:1px solid var(--line); border-radius:20px;
+    padding:32px; box-shadow:var(--shadow); margin-bottom:28px;
+  }
+  .case:last-child{ margin-bottom:0; }
+  .case-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:flex-start; }
+  .case-tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-size:.72rem; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+    background:var(--surface-alt); color:var(--ink-muted); border-radius:6px; padding:4px 9px;
+  }
+  .case h3{ font-size:1.5rem; margin-top:12px; }
+  .case .industry{ color:var(--ink-muted); font-size:.9rem; margin-top:6px; font-style:italic; font-family:'Fraunces',serif; }
+  .case-cols{ display:grid; gap:28px; margin-top:24px; }
+  @media (min-width:860px){ .case-cols{ grid-template-columns:.95fr 1.05fr; } }
+  .case-block + .case-block{ margin-top:18px; }
+  .case-block h4{
+    font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--accent); font-weight:600; margin-bottom:6px;
+  }
+  .case-block p{ color:var(--ink-muted); font-size:.95rem; }
+  .outcome-box{
+    background:var(--accent-soft); border:1px solid var(--accent); border-radius:12px; padding:16px 18px; margin-top:18px;
+  }
+  .outcome-box h4{ color:var(--accent-strong); }
+  .outcome-box p{ color:var(--ink); font-weight:500; }
+
+  .demo-shell{
+    background:var(--console-bg); border-radius:16px; padding:22px; color:var(--console-ink);
+    display:flex; flex-direction:column; gap:16px; min-height:100%;
+  }
+  .demo-label{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
+  .demo-label .eyebrow{ color:var(--accent); }
+  .live-dot{ width:8px; height:8px; border-radius:50%; background:var(--status-approve); box-shadow:0 0 0 4px color-mix(in srgb, var(--status-approve) 25%, transparent); }
+  .placeholder-shell{
+    background:var(--surface-alt); border:1px dashed var(--line); border-radius:16px; padding:28px;
+    display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:10px; min-height:220px;
+  }
+  .placeholder-shell .eyebrow{ color:var(--ink-muted); }
+  .placeholder-shell p{ color:var(--ink-muted); font-size:.9rem; max-width:36ch; }
+
+  /* ---------- Decisioning console ---------- */
+  .console-grid{ display:grid; gap:16px; }
+  @media (min-width:520px){ .console-grid.inputs{ grid-template-columns:1fr 1fr; } }
+  .field{ display:flex; flex-direction:column; gap:6px; }
+  .field label{ font-size:.76rem; color:var(--console-muted); font-family:'IBM Plex Mono',monospace; }
+  .field input, .field select{
+    background:#0000; border:1px solid var(--console-line); color:var(--console-ink);
+    border-radius:8px; padding:9px 10px; font-family:'IBM Plex Mono',monospace; font-size:.88rem;
+    width:100%;
+  }
+  .field input:focus, .field select:focus{ border-color:var(--accent); }
+  .console-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .btn-console{
+    background:var(--accent); color:var(--accent-ink); border:none; border-radius:8px;
+    padding:10px 16px; font-weight:600; font-size:.85rem; cursor:pointer;
+  }
+  .btn-console.secondary{ background:transparent; border:1px solid var(--console-line); color:var(--console-ink); }
+  .decision-readout{ border-top:1px solid var(--console-line); padding-top:16px; display:grid; gap:14px; }
+  .decision-badge{
+    display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px;
+    font-weight:700; font-size:.85rem; width:fit-content;
+  }
+  .decision-badge.approve{ background:var(--status-approve-soft); color:var(--status-approve); }
+  .decision-badge.refer{ background:var(--status-refer-soft); color:var(--status-refer); }
+  .decision-badge.decline{ background:var(--status-decline-soft); color:var(--status-decline); }
+  .decision-limit{ font-family:'IBM Plex Mono',monospace; font-size:1.6rem; font-weight:600; }
+  .factor-list{ display:grid; gap:8px; }
+  .factor{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    font-size:.85rem; padding:8px 10px; border-radius:8px; background:rgba(255,255,255,.03);
+  }
+  .factor .fname{ color:var(--console-ink); }
+  .factor .fdetail{ color:var(--console-muted); font-size:.78rem; display:block; }
+  .factor .fscore{ font-family:'IBM Plex Mono',monospace; font-weight:600; white-space:nowrap; }
+  .fscore.pos{ color:var(--status-approve); }
+  .fscore.neg{ color:var(--status-decline); }
+  .fscore.zero{ color:var(--console-muted); }
+  .example-flag{
+    font-size:.72rem; color:var(--console-muted); font-family:'IBM Plex Mono',monospace;
+    border:1px solid var(--console-line); border-radius:6px; padding:4px 8px; width:fit-content;
+  }
+  .compare-toggle{ margin-top:6px; }
+  .compare-toggle summary{ cursor:pointer; font-size:.85rem; color:var(--console-muted); font-family:'IBM Plex Mono',monospace; list-style:none; }
+  .compare-toggle summary::-webkit-details-marker{ display:none; }
+  .compare-toggle summary::before{ content:"+ "; color:var(--accent); }
+  .compare-toggle[open] summary::before{ content:"– "; }
+  .compare-grid{ display:grid; gap:14px; margin-top:14px; }
+  @media (min-width:480px){ .compare-grid{ grid-template-columns:1fr 1fr; } }
+  .compare-col{ border:1px solid var(--console-line); border-radius:10px; padding:14px; }
+  .compare-col h5{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; margin:0 0 10px; color:var(--console-muted); }
+  .compare-col ol{ margin:0; padding-left:18px; font-size:.82rem; color:var(--console-ink); display:grid; gap:6px; }
+
+  /* ---------- Skills ---------- */
+  .skills-grid{ display:grid; gap:20px; }
+  @media (min-width:720px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
+  .skill-card{ background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:24px; }
+  .skill-card h3{ font-size:1.05rem; }
+  .skill-card .pills{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .pill{ background:var(--surface-alt); border-radius:999px; padding:6px 12px; font-size:.82rem; color:var(--ink); }
+
+  /* ---------- Approach ---------- */
+  .principles{ display:grid; gap:20px; }
+  @media (min-width:720px){ .principles{ grid-template-columns:repeat(3,1fr); } }
+  .principle{ border-top:2px solid var(--accent); padding-top:16px; }
+  .principle .num{ font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:.82rem; }
+  .principle h3{ font-size:1.15rem; margin-top:8px; }
+  .principle p{ color:var(--ink-muted); margin-top:8px; font-size:.92rem; }
+
+  /* ---------- Credentials strip ---------- */
+  .creds{ display:flex; flex-wrap:wrap; gap:14px 32px; margin-top:8px; }
+  .cred{ display:flex; flex-direction:column; gap:2px; }
+  .cred .org{ font-weight:600; }
+  .cred .what{ font-size:.85rem; color:var(--ink-muted); }
+
+  /* ---------- Contact / footer ---------- */
+  .contact-box{
+    background:var(--ink); color:var(--bg); border-radius:24px; padding:48px 36px; text-align:center;
+  }
+  :root[data-theme="dark"] .contact-box, :root:not([data-theme="light"]) .contact-box{ background:var(--surface-alt); }
+  @media (prefers-color-scheme: light){ .contact-box{ background:var(--ink); color:var(--bg); } }
+  .contact-box h2{ color:inherit; font-size:clamp(1.6rem,3.4vw,2.2rem); }
+  .contact-box p{ color:inherit; opacity:.75; margin-top:12px; }
+  .contact-links{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:28px; }
+  .contact-links a{
+    border:1px solid color-mix(in srgb, currentColor 30%, transparent); border-radius:999px;
+    padding:12px 22px; text-decoration:none; font-weight:600; font-size:.9rem;
+  }
+  footer{ padding-block:32px; text-align:center; color:var(--ink-muted); font-size:.82rem; }
+
+  [data-reveal]{ opacity:1; transform:none; }
+  @media (prefers-reduced-motion:no-preference){
+    [data-reveal]{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
+    [data-reveal].in{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-mark">DM <span>Dean McDougall</span></div>
+    <ul class="nav-links">
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#work">Case studies</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#approach">Approach</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Contact</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero" style="border-bottom:1px solid var(--line);">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Senior Product Manager · Chicago, IL</p>
+        <h1>I take operations nobody enjoys running and turn them into systems people barely notice.</h1>
+        <p class="lede">Ten-plus years turning slow, manual, multi-department processes — bank credit decisions, field service dispatch, campaign operations, call centre coaching — into simple tools the business actually uses. Looking for a Senior PM / Director role where that habit is the job.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#work">See the tools in action</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="stat-card" data-reveal>
+        <div class="stat"><span class="stat-num">11+</span><span class="stat-label">years in product &amp; business analysis roles</span></div>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">industries: banking, field services, property, retail health, B2B equipment</span></div>
+        <div class="stat"><span class="stat-num">61</span><span class="stat-label">FTE redeployed off manual work through process automation at one employer</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE TIMELINE -->
+  <section id="experience">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Experience</p>
+      <h2>Fifteen years, one thread</h2>
+      <p>Every role below is a version of the same brief: find where the process is manual, judgement-heavy, or invisible to the customer — and fix that. Click a role to expand it.</p>
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section id="work">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Case studies</p>
+      <h2>Four tools, rebuilt for you to try</h2>
+      <p>These are de-identified, rebuilt versions of tools I led product for — same logic, generic company names, no confidential data. The first is fully interactive; the rest are following the same treatment.</p>
+    </div>
+
+    <div class="filter-row" id="filters"></div>
+    <div id="cases"></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Skills &amp; toolkit</p>
+      <h2>What I bring into a roadmap review</h2>
+    </div>
+    <div class="skills-grid" id="skills-grid"></div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">How I work</p>
+      <h2>Three habits that show up in every project above</h2>
+    </div>
+    <div class="principles" id="principles"></div>
+
+    <div style="margin-top:56px;" data-reveal>
+      <p class="eyebrow" style="margin-bottom:14px;">Education &amp; certification</p>
+      <div class="creds">
+        <div class="cred"><span class="org">Massey University</span><span class="what">MBA, Digital Transformation</span></div>
+        <div class="cred"><span class="org">Massey University</span><span class="what">Bachelor of Business, Management</span></div>
+        <div class="cred"><span class="org">Scrum Alliance</span><span class="what">Advanced Certified Scrum Product Owner</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="border-bottom:none;">
+    <div class="contact-box" data-reveal>
+      <h2>Let's talk about your roadmap.</h2>
+      <p>Open to Senior Product Manager and Director-level product roles.</p>
+      <div class="contact-links">
+        <a href="mailto:deanmcdougall@icloud.com">deanmcdougall@icloud.com</a>
+        <a href="https://www.linkedin.com/in/deanamcdougall" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>© Dean McDougall — Chicago, IL. Case studies are de-identified rebuilds; company names, data and figures are generalized to protect employer confidentiality.</footer>
+
+<script>
+(function(){
+  // ---------------- DATA ----------------
+  var experience = [
+    {
+      org:"CSC ServiceWorks", role:"Senior Product Manager", meta:"Jul 2025 – Present · Chicago, IL", current:true,
+      bullets:[
+        "Leading payment system integrations and platform development across enterprise-scale laundry services operations.",
+        "Coordinating complex technical initiatives across multiple development teams: payment processing, device management, and customer service automation.",
+        "Owning the strategic roadmap for automation rates that reduce manual operations and improve customer experience."
+      ]
+    },
+    {
+      org:"Greystar", role:"Senior Manager, Product Management", meta:"Jun 2024 – May 2025 · Chicago, IL",
+      bullets:[
+        "Spearheaded data collection, integration and analytics improvements to drive tenant engagement and operational efficiency.",
+        "Partnered with cross-functional teams to define product requirements and ship features against critical business challenges.",
+        "Managed third-party vendor and internal stakeholder relationships to keep platform integrations seamless."
+      ]
+    },
+    {
+      org:"Walgreens", role:"Product Manager", meta:"Oct 2022 – Jan 2024 · Chicago, IL",
+      bullets:[
+        "Led product management for a 90-day conversion feature and the back-end platform for off-site prescription fulfillment.",
+        "Ran discovery workshops and process-improvement work to gather requirements from internal and external stakeholders.",
+        "Managed a global delivery team across India, Ireland, Italy and the U.S., signing off requirements in JIRA and Confluence."
+      ]
+    },
+    {
+      org:"Brinks Home", role:"Senior Business Analyst", meta:"Oct 2020 – Feb 2022 · Dallas–Fort Worth",
+      bullets:[
+        "Led product ownership for a new Uber-style experience for customers to manage technician service appointments.",
+        "Owned the end-to-end product lifecycle plan from inception through implementation.",
+        "Coordinated delivery with team members across the U.K., Canada and the U.S."
+      ]
+    },
+    {
+      org:"ANZ", role:"Product Owner", meta:"Jun 2016 – Mar 2020 · Christchurch &amp; Wellington, NZ",
+      bullets:[
+        "Led medium-range business improvement initiatives within cost parameters for commercial banking.",
+        "Simplified manual processes for commercial banking, reassigning 48 FTE to higher-value work.",
+        "Streamlined the overdraft application process end-to-end, reassigning 13 FTE — the project rebuilt as the interactive demo below."
+      ]
+    },
+    {
+      org:"ANZ", role:"Business Analyst", meta:"Aug 2015 – Jun 2016 · Wellington &amp; Wairarapa, NZ",
+      bullets:[
+        "Managed the test plan and executed testing for a new intra-bank payments processing platform.",
+        "Collaborated across cross-functional teams to deliver the implementation successfully.",
+        "Analyzed test results and recommended improvements to payment processing efficiency."
+      ]
+    },
+    {
+      org:"ANZ", role:"Assistant Branch Manager, Personal Banker &amp; Customer Service Consultant", meta:"Dec 2010 – Jul 2015 · Wellington &amp; Wairarapa, NZ",
+      bullets:[
+        "Six years on the front line of retail banking before moving into analysis and product — where the instinct for what actually confuses a customer or a banker started."
+      ]
+    }
+  ];
+
+  var TAGS = {
+    simplify:"Simplification",
+    cx:"Customer Experience",
+    data:"Data &amp; AI",
+    systems:"Systems Integration"
+  };
+
+  var cases = [
+    {
+      id:"overdraft", tags:["simplify"], industry:"Regional commercial bank",
+      title:"Overdraft Decisioning Tool",
+      problem:"Business overdraft applications ran through a slow, manual review: paper forms, an underwriter's judgement call, and a credit committee for anything borderline — often days before a business owner heard back.",
+      approach:"Mapped the decision logic experienced bankers were already applying in their heads, turned it into an explicit, explainable scoring model, and built a self-service tool business bankers could run instantly in front of the customer.",
+      outcome:"Reassigned 13 FTE previously tied up in manual overdraft review to higher-value work, while replacing a multi-day wait with an instant, explainable decision.",
+      demo:"live"
+    },
+    {
+      id:"tracking", tags:["cx","systems"], industry:"Field services & home security",
+      title:"Technician Tracking Portal",
+      problem:"Customers waiting on a technician appointment had no visibility beyond a broad time window — driving heavy inbound call volume just to ask \"where's my tech?\"",
+      approach:"Owned the product end-to-end for an Uber-style experience: live technician location on a map, real-time appointment status, and self-service rescheduling — coordinating a delivery team across the U.K., Canada and the U.S.",
+      outcome:"Replaced a call-and-wait experience with a live, self-service view of the technician's location and status on appointment day.",
+      demo:"soon"
+    },
+    {
+      id:"journeys", tags:["data","systems"], industry:"Multifamily property management",
+      title:"Customer Journey Automation Platform",
+      problem:"Resident engagement and marketing campaigns depended on disconnected data and manual campaign set-up, repeated property by property across a large portfolio.",
+      approach:"Led data collection and integration improvements that let the platform trigger customer journeys and campaigns automatically, translating cross-functional requirements into shipped features and managing the third-party integrations behind them.",
+      outcome:"Automated customer journeys and campaigns that previously required manual set-up per property, improving consistency of resident communication at portfolio scale.",
+      demo:"soon"
+    },
+    {
+      id:"callcenter", tags:["data","cx"], industry:"B2B equipment & device services",
+      title:"Call Center Insights Platform",
+      problem:"Agents and their leaders had no consistent, real-time view of which behaviors on a call actually drove better outcomes — coaching was reactive and anecdotal.",
+      approach:"Led development of an AI-assisted call analysis tool that scored calls and surfaced specific, actionable coaching points for agents, plus a leadership-facing rollup of the drivers behind team performance.",
+      outcome:"Gave agents concrete, per-call guidance and gave leadership a real-time read on what was actually driving team results.",
+      demo:"soon"
+    }
+  ];
+
+  var skills = [
+    { title:"Product strategy & discovery", items:["Roadmapping","Discovery workshops","Human-centred design","Business case development"] },
+    { title:"Delivery & execution", items:["Agile / Scrum (CSPO, Advanced CSPO)","Cross-functional & distributed team leadership","Vendor & stakeholder management","JIRA · Confluence"] },
+    { title:"Data, systems & AI", items:["Marketing & product analytics","AI-enabled workflow tools","Platform & payments integration"] },
+    { title:"Leadership & change", items:["Change management","Organizational simplification","Executive stakeholder management","Oral communication"] }
+  ];
+
+  var principles = [
+    { n:"01", t:"Start with the human, not the workflow diagram", d:"Every project above began by watching the person stuck in the process — a banker on the phone, a customer waiting for a technician — before touching a system." },
+    { n:"02", t:"Simplify before you automate", d:"Automating a confusing process just makes it confusing faster. The FTE reassigned across these projects came from removing steps, not just software." },
+    { n:"03", t:"Bring the room with you", d:"Every one of these tools shipped through a distributed team — India, Ireland, Italy, the U.K., Canada, the U.S. Getting global stakeholders to a shared decision is the actual job." }
+  ];
+
+  // ---------------- RENDER: TIMELINE ----------------
+  var tl = document.getElementById("timeline");
+  experience.forEach(function(e, i){
+    var item = document.createElement("div");
+    item.className = "t-item" + (e.current ? " current" : "");
+    item.setAttribute("data-open", i === 0 ? "true" : "false");
+    item.innerHTML =
+      '<span class="t-dot"></span>' +
+      '<button class="t-head" aria-expanded="'+(i===0)+'">' +
+        '<span>' +
+          '<span class="t-role">' + e.role + ' · <span class="t-org">' + e.org + '</span></span>' +
+          '<div class="t-meta">' + e.meta + '</div>' +
+        '</span>' +
+        '<span class="t-chev">▾</span>' +
+      '</button>' +
+      '<div class="t-body"><div class="t-body-inner"><ul>' +
+        e.bullets.map(function(b){ return "<li>" + b + "</li>"; }).join("") +
+      '</ul></div></div>';
+    var head = item.querySelector(".t-head");
+    head.addEventListener("click", function(){
+      var open = item.getAttribute("data-open") === "true";
+      item.setAttribute("data-open", (!open).toString());
+      head.setAttribute("aria-expanded", (!open).toString());
+    });
+    tl.appendChild(item);
+  });
+
+  // ---------------- RENDER: FILTERS ----------------
+  var filterBar = document.getElementById("filters");
+  var activeTag = "all";
+  function renderFilters(){
+    var all = ['<button class="chip" data-tag="all" aria-pressed="'+(activeTag==="all")+'">All projects</button>'];
+    Object.keys(TAGS).forEach(function(k){
+      all.push('<button class="chip" data-tag="'+k+'" aria-pressed="'+(activeTag===k)+'">'+TAGS[k]+'</button>');
+    });
+    filterBar.innerHTML = all.join("");
+    filterBar.querySelectorAll(".chip").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        activeTag = btn.getAttribute("data-tag");
+        renderFilters();
+        renderCases();
+      });
+    });
+  }
+
+  // ---------------- RENDER: CASE STUDIES ----------------
+  var casesEl = document.getElementById("cases");
+  function renderCases(){
+    var visible = cases.filter(function(c){ return activeTag === "all" || c.tags.indexOf(activeTag) > -1; });
+    casesEl.innerHTML = "";
+    visible.forEach(function(c){
+      var card = document.createElement("article");
+      card.className = "case";
+      card.setAttribute("data-reveal","");
+      card.innerHTML =
+        '<div class="case-top">' +
+          '<div>' +
+            '<div class="case-tags">' + c.tags.map(function(t){ return '<span class="tag">'+TAGS[t]+'</span>'; }).join("") + '</div>' +
+            '<h3>' + c.title + '</h3>' +
+            '<p class="industry">' + c.industry + ' — de-identified</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="case-cols">' +
+          '<div>' +
+            '<div class="case-block"><h4>Problem</h4><p>' + c.problem + '</p></div>' +
+            '<div class="case-block"><h4>Approach</h4><p>' + c.approach + '</p></div>' +
+            '<div class="outcome-box"><h4>Outcome</h4><p>' + c.outcome + '</p></div>' +
+          '</div>' +
+          '<div class="case-demo-slot"></div>' +
+        '</div>';
+      var slot = card.querySelector(".case-demo-slot");
+      if(c.demo === "live"){
+        slot.appendChild(buildOverdraftDemo());
+      } else {
+        var ph = document.createElement("div");
+        ph.className = "placeholder-shell";
+        ph.innerHTML =
+          '<p class="eyebrow">Interactive demo</p>' +
+          '<h4 style="font-family:Fraunces,serif;font-weight:600;font-size:1.05rem;">In build — next up after the overdraft tool</h4>' +
+          '<p>This will be a working rebuild of the real tool, same treatment as the demo in the first case study.</p>';
+        slot.appendChild(ph);
+      }
+      casesEl.appendChild(card);
+    });
+    observeReveals();
+  }
+
+  // ---------------- OVERDRAFT DEMO ----------------
+  function buildOverdraftDemo(){
+    var wrap = document.createElement("div");
+    wrap.className = "demo-shell";
+    wrap.innerHTML =
+      '<div class="demo-label"><span class="eyebrow">Live demo · rules engine runs in your browser</span><span class="live-dot" aria-hidden="true"></span></div>' +
+      '<span class="example-flag">Loaded with an example application — edit any field</span>' +
+      '<div class="console-grid inputs">' +
+        field("biz-type","Business type","select",["Sole trader","Partnership","Company"]) +
+        field("years","Time trading (years)","number","4") +
+        field("turnover","Avg monthly turnover ($)","number","42000") +
+        field("requested","Overdraft requested ($)","number","15000") +
+        field("balance","12-mo avg account balance ($)","number","9000") +
+        field("dishonors","Dishonored payments (6 mo)","number","0") +
+        field("debt","Existing total debt ($)","number","20000") +
+      '</div>' +
+      '<div class="console-actions">' +
+        '<button class="btn-console" id="run-decision">Run decision</button>' +
+        '<button class="btn-console secondary" id="reset-decision" type="button">Reset example</button>' +
+      '</div>' +
+      '<div class="decision-readout" id="decision-readout"></div>' +
+      '<details class="compare-toggle"><summary>Manual process vs. this tool</summary>' +
+        '<div class="compare-grid">' +
+          '<div class="compare-col"><h5>Before</h5><ol>' +
+            '<li>Business owner submits paper application</li>' +
+            '<li>Underwriter manually reviews financials</li>' +
+            '<li>Borderline cases go to credit committee</li>' +
+            '<li>Decision returned in 5–10 business days</li>' +
+          '</ol></div>' +
+          '<div class="compare-col"><h5>After</h5><ol>' +
+            '<li>Banker enters figures with the customer present</li>' +
+            '<li>Rules engine scores the application instantly</li>' +
+            '<li>Only true edge cases route to a credit manager</li>' +
+            '<li>Decision returned in seconds</li>' +
+          '</ol></div>' +
+        '</div>' +
+      '</details>';
+
+    function field(id,label,type,def){
+      if(type==="select"){
+        return '<div class="field"><label for="'+id+'">'+label+'</label><select id="'+id+'">' +
+          def.map(function(o){ return '<option>'+o+'</option>'; }).join("") + '</select></div>';
+      }
+      return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" type="'+type+'" value="'+def+'" min="0" /></div>';
+    }
+
+    function num(id){ return parseFloat(wrap.querySelector("#"+id).value) || 0; }
+
+    function factorRow(name, detail, score){
+      var cls = score > 0 ? "pos" : (score < 0 ? "neg" : "zero");
+      var sign = score > 0 ? "+" : "";
+      return '<div class="factor"><span><span class="fname">'+name+'</span><span class="fdetail">'+detail+'</span></span><span class="fscore '+cls+'">'+sign+score+' pts</span></div>';
+    }
+
+    function run(){
+      var years = num("years"), turnover = num("turnover"), requested = num("requested"),
+          balance = num("balance"), dishonors = num("dishonors"), debt = num("debt");
+
+      var factors = [];
+      var score = 50;
+
+      var coverage = turnover > 0 ? requested / turnover : 99;
+      var covPts = coverage <= 0.15 ? 30 : coverage <= 0.3 ? 15 : coverage <= 0.5 ? 0 : -25;
+      score += covPts;
+      factors.push(factorRow("Request vs. turnover", "requested is " + (coverage*100).toFixed(0) + "% of monthly turnover", covPts));
+
+      var yearsPts = years >= 3 ? 20 : years >= 1 ? 8 : -10;
+      score += yearsPts;
+      factors.push(factorRow("Trading history", years + " year(s) trading", yearsPts));
+
+      var balRatio = requested > 0 ? balance / requested : 0;
+      var balPts = balRatio >= 0.5 ? 15 : balRatio >= 0.2 ? 5 : -5;
+      score += balPts;
+      factors.push(factorRow("Average balance buffer", "balance covers " + (balRatio*100).toFixed(0) + "% of request", balPts));
+
+      var dishPts = dishonors === 0 ? 15 : dishonors <= 2 ? -10 : -30;
+      score += dishPts;
+      factors.push(factorRow("Payment history", dishonors + " dishonor(s) in 6 months", dishPts));
+
+      var annualTurnover = turnover * 12;
+      var debtRatio = annualTurnover > 0 ? debt / annualTurnover : 99;
+      var debtPts = debtRatio <= 0.2 ? 10 : debtRatio <= 0.5 ? 0 : -20;
+      score += debtPts;
+      factors.push(factorRow("Existing debt load", "debt is " + (debtRatio*100).toFixed(0) + "% of annual turnover", debtPts));
+
+      score = Math.max(0, Math.min(100, score));
+
+      var decision, limit, badgeClass;
+      if(score >= 70){
+        decision = "Auto-approved"; badgeClass = "approve";
+        limit = Math.min(requested, turnover * 0.4);
+      } else if(score >= 40){
+        decision = "Referred to credit manager"; badgeClass = "refer";
+        limit = requested;
+      } else {
+        decision = "Declined as submitted"; badgeClass = "decline";
+        limit = Math.max(0, turnover * 0.15);
+      }
+
+      var readout = wrap.querySelector("#decision-readout");
+      readout.innerHTML =
+        '<div><span class="decision-badge '+badgeClass+'">'+decision+' · score '+score+'/100</span></div>' +
+        (badgeClass !== "decline"
+          ? '<div><div class="fdetail" style="font-family:IBM Plex Mono,monospace;color:var(--console-muted);font-size:.78rem;">SUGGESTED LIMIT</div><div class="decision-limit">$' + Math.round(limit).toLocaleString() + '</div></div>'
+          : '<div><div class="fdetail" style="font-family:IBM Plex Mono,monospace;color:var(--console-muted);font-size:.78rem;">SUGGESTED STARTING POINT</div><div class="decision-limit">$' + Math.round(limit).toLocaleString() + '</div></div>') +
+        '<div class="factor-list">' + factors.join("") + '</div>';
+    }
+
+    wrap.addEventListener("click", function(e){
+      if(e.target && e.target.id === "run-decision"){ e.preventDefault(); run(); }
+      if(e.target && e.target.id === "reset-decision"){
+        e.preventDefault();
+        wrap.querySelector("#biz-type").value = "Sole trader";
+        wrap.querySelector("#years").value = 4;
+        wrap.querySelector("#turnover").value = 42000;
+        wrap.querySelector("#requested").value = 15000;
+        wrap.querySelector("#balance").value = 9000;
+        wrap.querySelector("#dishonors").value = 0;
+        wrap.querySelector("#debt").value = 20000;
+        run();
+      }
+    });
+
+    setTimeout(run, 0);
+    return wrap;
+  }
+
+  // ---------------- RENDER: SKILLS ----------------
+  var skillsGrid = document.getElementById("skills-grid");
+  skills.forEach(function(s){
+    var card = document.createElement("div");
+    card.className = "skill-card";
+    card.setAttribute("data-reveal","");
+    card.innerHTML = '<h3>'+s.title+'</h3><div class="pills">' + s.items.map(function(i){ return '<span class="pill">'+i+'</span>'; }).join("") + '</div>';
+    skillsGrid.appendChild(card);
+  });
+
+  // ---------------- RENDER: PRINCIPLES ----------------
+  var pWrap = document.getElementById("principles");
+  principles.forEach(function(p){
+    var el = document.createElement("div");
+    el.className = "principle";
+    el.setAttribute("data-reveal","");
+    el.innerHTML = '<div class="num">'+p.n+'</div><h3>'+p.t+'</h3><p>'+p.d+'</p>';
+    pWrap.appendChild(el);
+  });
+
+  renderFilters();
+  renderCases();
+
+  // ---------------- REVEAL ON SCROLL ----------------
+  function observeReveals(){
+    if(!("IntersectionObserver" in window)){
+      document.querySelectorAll("[data-reveal]").forEach(function(el){ el.classList.add("in"); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ entry.target.classList.add("in"); io.unobserve(entry.target); }
+      });
+    }, { threshold:0.12 });
+    document.querySelectorAll("[data-reveal]:not(.in)").forEach(function(el){ io.observe(el); });
+  }
+  observeReveals();
+})();
+</script>
+</body>
+</html>
