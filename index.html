@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Dean McDougall</title>
-<meta name="description" content="Interactive product management portfolio with de-identified, working rebuilds of tools Dean McDougall has led.">
-<meta property="og:title" content="Dean McDougall">
-<meta property="og:description" content="Senior Product Manager — interactive portfolio with a live, working decisioning-tool demo.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dean McDougall">
-<meta name="twitter:description" content="Senior Product Manager — interactive portfolio with a live, working decisioning-tool demo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FAF9FD;
@@ -166,9 +155,9 @@
   @media (min-width:900px){ section{ padding-block:88px; } }
   #experience{ border-top:1px solid var(--line); }
   #skills{ border-top:1px solid var(--line); }
-  .experience-section{ padding-block-start:24px; }
-  @media (min-width:900px){ .experience-section{ padding-block-start:28px; } }
-  .experience-section .section-head{ margin-bottom:28px; }
+  .hero-adjacent{ padding-block-start:24px; }
+  @media (min-width:900px){ .hero-adjacent{ padding-block-start:28px; } }
+  .hero-adjacent .section-head{ margin-bottom:28px; }
 
   /* ---------- Nav ---------- */
   header.nav{
@@ -197,6 +186,15 @@
     transition:color .15s ease;
   }
   .nav-links a:hover{ color:var(--accent-strong); }
+  .nav-actions{ display:flex; align-items:center; gap:10px; }
+  .nav-pdf-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    border:1px solid var(--line); background:transparent; border-radius:999px; padding:8px 16px;
+    font-size:.85rem; font-weight:600; color:var(--ink-muted); cursor:pointer;
+    white-space:nowrap; transition:border-color .15s ease, color .15s ease;
+  }
+  .nav-pdf-btn:hover{ border-color:var(--accent2); color:var(--accent2-strong); }
+  .nav-pdf-btn svg{ width:14px; height:14px; flex:0 0 auto; }
   .nav-cta{
     border:1px solid var(--ink); background:var(--ink); border-radius:999px; padding:8px 16px;
     font-size:.85rem; font-weight:600; text-decoration:none; color:var(--bg);
@@ -204,6 +202,7 @@
   }
   .nav-cta:hover{ background:var(--accent-strong); border-color:var(--accent-strong); color:var(--accent-ink); }
   @media (max-width:760px){ .nav-links{ display:none; } }
+  @media (max-width:420px){ .nav-inner{ flex-wrap:wrap; row-gap:10px; } .nav-pdf-btn span{ display:none; } }
 
   /* ---------- Hero ---------- */
   .hero-section{ padding-block:28px 36px; }
@@ -279,10 +278,20 @@
   .t-meta{ font-size:.82rem; color:var(--ink-muted); margin-top:4px; font-family:'IBM Plex Mono',monospace; }
   .t-chev{
     flex:0 0 auto; display:flex; align-items:center; justify-content:center;
-    width:32px; height:32px; border-radius:50%; background:var(--accent2-soft); color:var(--accent2-strong);
-    font-size:.9rem; transition:transform .25s ease, background .15s ease, color .15s ease;
+    width:38px; height:38px; border-radius:50%; background:var(--accent2); color:var(--accent2-ink);
+    box-shadow:0 2px 8px -2px color-mix(in srgb, var(--accent2) 55%, transparent);
+    transition:transform .25s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
   }
-  .t-item[data-open="true"] .t-chev{ transform:rotate(180deg); background:var(--accent2); color:var(--accent2-ink); }
+  .t-chev svg{ width:16px; height:16px; display:block; }
+  .t-head:hover .t-chev{ box-shadow:0 3px 12px -2px color-mix(in srgb, var(--accent2) 70%, transparent); transform:scale(1.08); }
+  .t-item[data-open="true"] .t-chev{ transform:rotate(180deg); background:var(--accent2-strong); }
+  .t-item[data-open="true"] .t-head:hover .t-chev{ transform:rotate(180deg) scale(1.08); }
+  .t-hint{
+    font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.04em; color:var(--accent2-strong);
+    white-space:nowrap; display:none;
+  }
+  @media (min-width:560px){ .t-hint{ display:inline; } }
+  .t-item[data-open="true"] .t-hint{ display:none; }
   .t-body{ border:1px solid var(--accent2); border-top:none; border-radius:0 0 14px 14px; }
   .t-item[data-open="false"] .t-body{ border-color:transparent; }
   .t-body-inner{ padding:0 16px 16px; }
@@ -333,19 +342,26 @@
   .tag[data-tag="systems"]{ background:var(--accent3-soft); color:var(--accent3-strong); }
   .case h3{ font-size:1.5rem; margin-top:12px; }
   .case .industry{ color:var(--ink-muted); font-size:.9rem; margin-top:6px; font-style:italic; font-family:'Fraunces',serif; }
-  .case-cols{ display:grid; gap:28px; margin-top:24px; }
-  @media (min-width:860px){ .case-cols{ grid-template-columns:.9fr 1.1fr; } }
-  .case-block + .case-block{ margin-top:18px; }
+
+  /* Intro (problem/approach/outcome) runs as a 3-up strip so the demo below can go full width */
+  .case-intro{ display:grid; gap:18px; margin-top:24px; }
+  @media (min-width:760px){ .case-intro{ grid-template-columns:repeat(3,1fr); } }
   .case-block h4{
     font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
     color:var(--accent-strong); font-weight:700; margin-bottom:6px;
   }
   .case-block p{ color:var(--ink-muted); font-size:.95rem; }
   .outcome-box{
-    background:var(--accent3-soft); border:1px solid var(--accent3); border-radius:12px; padding:16px 18px; margin-top:18px;
+    background:var(--accent3-soft); border:1px solid var(--accent3); border-radius:12px; padding:16px 18px;
   }
   .outcome-box h4{ color:var(--accent3-strong); }
   .outcome-box p{ color:var(--ink); font-weight:500; }
+  .case-demo-full{ margin-top:24px; }
+  .demo-shell{ max-width:960px; margin-inline:auto; }
+  .od-grid{ display:grid; grid-template-columns:minmax(0,1fr); gap:20px; }
+  .od-grid > *{ min-width:0; }
+  @media (min-width:680px){ .od-grid{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:stretch; } }
+  .step-block, .decision-panel{ height:100%; }
 
   .demo-shell{
     background:var(--console-bg); border-radius:18px; padding:22px; color:var(--console-ink);
@@ -367,7 +383,8 @@
   }
 
   /* ---------- Workflow steps ---------- */
-  .step-block{ border:1px solid var(--console-line); border-radius:14px; padding:16px 16px 18px; display:grid; gap:14px; }
+  .step-block{ border:1px solid var(--console-line); border-radius:14px; padding:16px 16px 18px; display:grid; grid-template-columns:minmax(0,1fr); gap:14px; min-width:0; }
+  .step-block > *{ min-width:0; }
   .step-head{ display:flex; align-items:center; gap:10px; }
   .step-head h5{ font-family:'Fraunces',serif; font-weight:600; font-size:.95rem; color:var(--console-ink); margin:0; }
   .step-num{
@@ -395,16 +412,17 @@
   }
   input[type="range"]::-moz-range-track{ height:6px; border-radius:999px; background:var(--console-line); }
 
-  .segmented{ display:inline-flex; border:1px solid var(--console-line); border-radius:10px; overflow:hidden; width:100%; }
+  .segmented{ display:flex; flex-wrap:wrap; border:1px solid var(--console-line); border-radius:10px; overflow:hidden; width:100%; }
   .segmented button{
-    flex:1; background:transparent; color:var(--console-muted); border:none; padding:9px 10px;
-    font-size:.82rem; font-weight:600; cursor:pointer; border-right:1px solid var(--console-line);
+    flex:1 1 84px; min-width:84px; background:transparent; color:var(--console-muted); border:none; padding:9px 6px;
+    font-size:.82rem; font-weight:600; cursor:pointer; border-right:1px solid var(--console-line); border-bottom:1px solid var(--console-line);
   }
   .segmented button:last-child{ border-right:none; }
   .segmented button[aria-pressed="true"]{ background:var(--accent); color:var(--accent-ink); }
 
   /* ---------- Decision panel / gauge ---------- */
-  .decision-panel{ border:1px solid var(--console-line); border-radius:14px; padding:18px 16px 20px; display:grid; gap:16px; }
+  .decision-panel{ border:1px solid var(--console-line); border-radius:14px; padding:18px 16px 20px; display:grid; grid-template-columns:minmax(0,1fr); gap:16px; min-width:0; }
+  .decision-panel > *{ min-width:0; }
   .gauge-row{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
   .gauge-wrap{ position:relative; width:170px; flex:0 0 auto; }
   .gauge{ width:100%; display:block; }
@@ -436,7 +454,8 @@
   .fscore.zero{ color:var(--console-muted); }
 
   /* ---------- Core-system readout (risk signals) ---------- */
-  .system-panel{ border:1px solid var(--console-line); border-radius:10px; padding:12px 14px; display:grid; gap:9px; }
+  .system-panel{ border:1px solid var(--console-line); border-radius:10px; padding:12px 14px; display:grid; grid-template-columns:minmax(0,1fr); gap:9px; min-width:0; }
+  .system-panel > *{ min-width:0; }
   .system-panel-head{ display:flex; align-items:center; gap:7px; }
   .sync-dot{ width:6px; height:6px; border-radius:50%; background:var(--accent3); box-shadow:0 0 0 3px color-mix(in srgb, var(--accent3) 30%, transparent); flex:0 0 auto; }
   .system-source{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:var(--console-muted); }
@@ -543,6 +562,56 @@
   .compare-col h5{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; margin:0 0 10px; color:var(--console-muted); }
   .compare-col ol{ margin:0; padding-left:18px; font-size:.82rem; color:var(--console-ink); display:grid; gap:6px; }
 
+  /* ---------- Journey automation demo ---------- */
+  .entry-line{ font-size:.85rem; color:var(--console-ink); }
+  .entry-line .entry-kind{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.06em; text-transform:uppercase; color:var(--console-muted); display:block; margin-bottom:3px; }
+  .journey-canvas{ display:grid; grid-template-columns:minmax(0,1fr); gap:0; min-width:0; }
+  .journey-canvas > *{ min-width:0; }
+  .jn-node{ position:relative; border:1px solid var(--console-line); border-left:4px solid var(--ink-muted); border-radius:10px; padding:10px 12px; background:rgba(255,255,255,.03); }
+  .jn-connector{ width:2px; height:16px; background:var(--console-line); margin-inline:18px; }
+  .jn-type{ font-family:'IBM Plex Mono',monospace; font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; }
+  .jn-title{ font-size:.9rem; font-weight:600; margin-top:3px; color:var(--console-ink); }
+  .jn-detail{ font-size:.78rem; color:var(--console-muted); margin-top:2px; }
+  .jn-node[data-type="trigger"], .jn-node[data-type="segment"]{ border-left-color:var(--accent2); }
+  .jn-node[data-type="trigger"] .jn-type, .jn-node[data-type="segment"] .jn-type{ color:var(--accent2); }
+  .jn-node[data-type="wait"]{ border-left-color:var(--gold); border-style:dashed; }
+  .jn-node[data-type="wait"] .jn-type{ color:var(--gold); }
+  .jn-node[data-type="email"]{ border-left-color:var(--accent); }
+  .jn-node[data-type="email"] .jn-type{ color:var(--accent); }
+  .jn-node[data-type="sms"]{ border-left-color:var(--accent3); }
+  .jn-node[data-type="sms"] .jn-type{ color:var(--accent3); }
+  .jn-node[data-type="task"]{ border-left-color:var(--status-refer); }
+  .jn-node[data-type="task"] .jn-type{ color:var(--status-refer); }
+  .jn-node[data-type="goal"]{ border-left-color:var(--status-approve); background:color-mix(in srgb, var(--status-approve) 10%, transparent); }
+  .jn-node[data-type="goal"] .jn-type{ color:var(--status-approve); }
+  .jn-split{ border:1px dashed var(--console-line); border-radius:10px; padding:9px 12px; text-align:center; }
+  .jn-split .jn-title{ font-weight:600; }
+  .jn-branches{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+  .jn-branches > *{ min-width:0; }
+  .jn-branch{ display:grid; gap:0; }
+  .jn-branch-label{ font-family:'IBM Plex Mono',monospace; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:700; text-align:center; padding-block:6px; }
+  .jn-branch.yes .jn-branch-label{ color:var(--status-approve); }
+  .jn-branch.no .jn-branch-label{ color:var(--status-decline); }
+  .jn-branch-empty{ font-size:.76rem; color:var(--console-muted); text-align:center; padding-block:6px; font-style:italic; }
+  .funnel-panel{ border:1px solid var(--console-line); border-radius:14px; padding:16px; display:grid; grid-template-columns:minmax(0,1fr); gap:12px; min-width:0; }
+  .funnel-panel > *{ min-width:0; }
+  .funnel-row{ display:grid; gap:5px; }
+  .funnel-head{ display:flex; justify-content:space-between; font-size:.82rem; }
+  .funnel-head .flabel{ color:var(--console-ink); }
+  .funnel-head .fcount{ font-family:'IBM Plex Mono',monospace; color:var(--console-muted); }
+  .funnel-track{ height:8px; border-radius:999px; background:var(--console-line); overflow:hidden; }
+  .funnel-fill{ height:100%; border-radius:999px; background:var(--accent3); width:0%; transition:width 1s cubic-bezier(.22,1,.36,1); }
+  .funnel-fill.step1{ background:var(--accent2); }
+  .funnel-fill.step2{ background:var(--gold); }
+  .funnel-fill.step3{ background:var(--accent); }
+  .funnel-fill.step4{ background:var(--accent3); }
+  .run-btn{ width:100%; background:var(--accent3); color:#052421; border:none; border-radius:10px; padding:13px; font-weight:700; font-size:.9rem; cursor:pointer; }
+  .run-btn:hover{ background:var(--accent3-strong); color:#eafffb; }
+  .outcome-callout{ border:2px solid var(--status-approve); background:var(--status-approve-soft); border-radius:14px; padding:16px 14px; text-align:center; opacity:0; transform:scale(.94); transition:opacity .4s ease, transform .4s cubic-bezier(.22,1.4,.4,1); }
+  .outcome-callout.show{ opacity:1; transform:scale(1); }
+  .outcome-title{ font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; color:var(--status-approve); }
+  .outcome-sub{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; margin-top:6px; color:var(--console-muted); }
+
   /* ---------- Skills ---------- */
   .skills-grid{ display:grid; gap:20px; }
   @media (min-width:720px){ .skills-grid{ grid-template-columns:1fr 1fr; } }
@@ -567,23 +636,7 @@
   .cred .org{ font-weight:700; }
   .cred .what{ font-size:.85rem; color:var(--ink-muted); }
 
-  /* ---------- Contact / footer ---------- */
-  .contact-box{
-    position:relative; overflow:hidden;
-    background:var(--accent); color:var(--accent-ink); border-radius:28px; padding:48px 28px; text-align:center;
-  }
-  .contact-box::before{
-    content:""; position:absolute; width:300px; height:300px; border-radius:50%;
-    background:var(--accent2); opacity:.3; filter:blur(6px); top:-130px; left:-90px; pointer-events:none;
-  }
-  .contact-box h2{ color:inherit; font-size:clamp(1.6rem,3.4vw,2.2rem); position:relative; }
-  .contact-box p{ color:inherit; opacity:.85; margin-top:12px; position:relative; }
-  .contact-links{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:28px; position:relative; }
-  .contact-links a{
-    border:1px solid color-mix(in srgb, currentColor 35%, transparent); border-radius:999px;
-    padding:12px 22px; text-decoration:none; font-weight:700; font-size:.9rem;
-  }
-  .contact-links a:hover{ background:color-mix(in srgb, var(--accent-ink) 15%, transparent); }
+  /* ---------- Footer ---------- */
   footer{ padding-block:32px; text-align:center; color:var(--ink-muted); font-size:.82rem; }
 
   [data-reveal]{ opacity:1; transform:none; }
@@ -591,20 +644,56 @@
     [data-reveal]{ opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease; }
     [data-reveal].in{ opacity:1; transform:none; }
   }
+
+  /* ---------- Print / Export PDF ---------- */
+  @media print{
+    /* Force the light palette even if the viewer's system is in dark mode —
+       otherwise light-colored text can print invisibly on white paper. */
+    :root, :root[data-theme="dark"]{
+      --bg:#ffffff !important; --surface:#ffffff !important; --surface-alt:#f3f2f7 !important;
+      --ink:#1a1523 !important; --ink-muted:#4a4458 !important; --line:#c9c4d6 !important;
+      --accent:#c2401f !important; --accent-strong:#9c3118 !important; --accent-ink:#ffffff !important; --accent-soft:#f6e2da !important;
+      --accent2:#463ac4 !important; --accent2-strong:#332875 !important; --accent2-ink:#ffffff !important; --accent2-soft:#e9e7f9 !important;
+      --accent3:#0b7b70 !important; --accent3-strong:#075c54 !important; --accent3-soft:#e0f3f0 !important;
+      --gold:#a06a00 !important; --gold-strong:#7a5100 !important; --gold-ink:#ffffff !important; --gold-soft:#f3e6c8 !important;
+      --console-bg:#ffffff !important; --console-line:#c9c4d6 !important; --console-ink:#1a1523 !important; --console-muted:#5b5468 !important;
+      --status-approve:#157a3d !important; --status-approve-soft:#dcf3e3 !important;
+      --status-refer:#a06a00 !important; --status-refer-soft:#f8ecd1 !important;
+      --status-decline:#a12a24 !important; --status-decline-soft:#f8dedc !important;
+      --shadow:none !important;
+      color-scheme:light !important;
+    }
+    @page{ margin:0.6in; }
+    body{ background:#fff !important; padding-inline:0 !important; font-size:11pt; }
+    .wrap{ max-width:100%; }
+    section{ padding-block:22pt !important; }
+    header.nav, .filter-row, .decide-btn, .run-btn, #cc-coach-btn,
+    .track-actions, .stale-note, .t-chev, .t-hint, .no-print{ display:none !important; }
+    input[type="range"]{ display:none; }
+    .hero-section{ padding-block:0 8pt !important; }
+    .hero-card, .demo-shell{ box-shadow:none !important; border:1px solid var(--line); }
+    .case, .t-item, .skill-card, .principle, .stat-card{ box-shadow:none !important; break-inside:avoid; page-break-inside:avoid; }
+    .live-dot, .sync-dot{ animation:none !important; }
+    a{ text-decoration:none; }
+  }
 </style>
 
-</head>
-<body>
 <header class="nav">
   <div class="nav-inner">
     <div class="nav-mark"><span class="initials">DM</span> <span>Dean McDougall</span></div>
     <ul class="nav-links">
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#work">Case studies</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#approach">Approach</a></li>
+      <li><a href="#work">Case studies</a></li>
     </ul>
-    <a class="nav-cta" href="#contact">Contact</a>
+    <div class="nav-actions">
+      <button type="button" class="nav-pdf-btn no-print" id="export-pdf-btn" aria-label="Export this page as a PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+        <span>Export PDF</span>
+      </button>
+      <a class="nav-cta" href="mailto:deanmcdougall@icloud.com">Contact</a>
+    </div>
   </div>
 </header>
 
@@ -620,8 +709,9 @@
           <h1>I've spent my career fixing the parts of a business that everyone complains about but nobody owns.</h1>
           <p class="lede">Bank overdraft decisions, field technician dispatch, campaign operations, call centre coaching — different industries, same pattern: a manual process everyone's frustrated with, and no one's had the time to fix. That's the part of the job I actually like. Currently looking for my next Senior PM or Director role.</p>
           <div class="cta-row">
-            <a class="btn btn-primary" href="#contact">Get in touch</a>
-            <a class="btn btn-ghost" href="#work">Case studies</a>
+            <a class="btn btn-primary" href="mailto:deanmcdougall@icloud.com">deanmcdougall@icloud.com</a>
+            <a class="btn btn-ghost" href="https://www.linkedin.com/in/deanamcdougall" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a class="btn btn-ghost no-print" href="#work">Case studies</a>
           </div>
         </div>
         <div class="stat-card">
@@ -634,30 +724,19 @@
   </section>
 
   <!-- EXPERIENCE TIMELINE -->
-  <section id="experience" class="experience-section">
+  <section id="experience" class="hero-adjacent">
     <div class="section-head" data-reveal>
+      <p class="eyebrow">Experience</p>
       <h2>Career</h2>
     </div>
 
     <div class="timeline" id="timeline"></div>
   </section>
 
-  <!-- CASE STUDIES -->
-  <section id="work">
-    <div class="section-head" data-reveal>
-      <p class="eyebrow">Case studies</p>
-      <h2>Four tools, rebuilt for you to try</h2>
-      <p>These are de-identified, rebuilt versions of tools I led product for — same logic, generic company names, no confidential data. The first is fully interactive; the rest are following the same treatment.</p>
-    </div>
-
-    <div class="filter-row" id="filters"></div>
-    <div id="cases"></div>
-  </section>
-
   <!-- SKILLS -->
   <section id="skills">
     <div class="section-head" data-reveal>
-      <p class="eyebrow">Skills &amp; toolkit</p>
+      <p class="eyebrow">Skills</p>
       <h2>What I bring into a roadmap review</h2>
     </div>
     <div class="skills-grid" id="skills-grid"></div>
@@ -666,7 +745,7 @@
   <!-- APPROACH -->
   <section id="approach">
     <div class="section-head" data-reveal>
-      <p class="eyebrow">How I work</p>
+      <p class="eyebrow">Approach</p>
       <h2>Three habits that show up in every project above</h2>
     </div>
     <div class="principles" id="principles"></div>
@@ -681,16 +760,16 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-box" data-reveal>
-      <h2>Let's talk about your roadmap.</h2>
-      <p>Open to Senior Product Manager and Director-level product roles.</p>
-      <div class="contact-links">
-        <a href="mailto:deanmcdougall@icloud.com">deanmcdougall@icloud.com</a>
-        <a href="https://www.linkedin.com/in/deanamcdougall" target="_blank" rel="noopener">LinkedIn ↗</a>
-      </div>
+  <!-- CASE STUDIES -->
+  <section id="work">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Case studies</p>
+      <h2>Four tools, rebuilt for you to try</h2>
+      <p>These are de-identified, rebuilt versions of tools I led product for — same logic, generic company names, no confidential data. All four are fully interactive: drag the controls, run the workflow, see the outcome.</p>
     </div>
+
+    <div class="filter-row" id="filters"></div>
+    <div id="cases"></div>
   </section>
 </main>
 
@@ -787,7 +866,7 @@
       problem:"Resident engagement and marketing campaigns depended on disconnected data and manual campaign set-up, repeated property by property across a large portfolio.",
       approach:"Led data collection and integration improvements that let the platform trigger customer journeys and campaigns automatically, translating cross-functional requirements into shipped features and managing the third-party integrations behind them.",
       outcome:"Automated customer journeys and campaigns that previously required manual set-up per property, improving consistency of resident communication at portfolio scale.",
-      demo:"soon"
+      demo:"live"
     },
     {
       id:"callcenter", tags:["data","cx"], industry:"B2B equipment & device services",
@@ -795,7 +874,7 @@
       problem:"Agents and their leaders had no consistent, real-time view of which behaviors on a call actually drove better outcomes — coaching was reactive and anecdotal.",
       approach:"Led development of an AI-assisted call analysis tool that scored calls and surfaced specific, actionable coaching points for agents, plus a leadership-facing rollup of the drivers behind team performance.",
       outcome:"Gave agents concrete, per-call guidance and gave leadership a real-time read on what was actually driving team results.",
-      demo:"soon"
+      demo:"live"
     }
   ];
 
@@ -803,7 +882,7 @@
     { title:"Product strategy & discovery", items:["Roadmapping","Discovery workshops","Human-centred design","Business case development"] },
     { title:"Delivery & execution", items:["Agile / Scrum (CSPO, Advanced CSPO)","Cross-functional & distributed team leadership","Vendor & stakeholder management","JIRA · Confluence"] },
     { title:"Data, systems & AI", items:["Marketing & product analytics","AI-enabled workflow tools","Platform & payments integration"] },
-    { title:"Leadership & change", items:["Change management","Organizational simplification","Executive stakeholder management","Oral communication"] }
+    { title:"Leadership & change", items:["Change management","Organizational simplification","Executive stakeholder management"] }
   ];
 
   var principles = [
@@ -825,7 +904,10 @@
           '<span class="t-role">' + e.role + ' · <span class="t-org">' + e.org + '</span></span>' +
           '<div class="t-meta">' + e.meta + '</div>' +
         '</span>' +
-        '<span class="t-chev">▾</span>' +
+        '<span style="display:flex;align-items:center;gap:10px;flex:0 0 auto;">' +
+          '<span class="t-hint">View details</span>' +
+          '<span class="t-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>' +
+        '</span>' +
       '</button>' +
       '<div class="t-body"><div class="t-body-inner"><ul>' +
         e.bullets.map(function(b){ return "<li>" + b + "</li>"; }).join("") +
@@ -876,19 +958,21 @@
             '<p class="industry">' + c.industry + ' — de-identified</p>' +
           '</div>' +
         '</div>' +
-        '<div class="case-cols">' +
-          '<div>' +
-            '<div class="case-block"><h4>Problem</h4><p>' + c.problem + '</p></div>' +
-            '<div class="case-block"><h4>Approach</h4><p>' + c.approach + '</p></div>' +
-            '<div class="outcome-box"><h4>Outcome</h4><p>' + c.outcome + '</p></div>' +
-          '</div>' +
-          '<div class="case-demo-slot"></div>' +
-        '</div>';
+        '<div class="case-intro">' +
+          '<div class="case-block"><h4>Problem</h4><p>' + c.problem + '</p></div>' +
+          '<div class="case-block"><h4>Approach</h4><p>' + c.approach + '</p></div>' +
+          '<div class="outcome-box"><h4>Outcome</h4><p>' + c.outcome + '</p></div>' +
+        '</div>' +
+        '<div class="case-demo-full"><div class="case-demo-slot"></div></div>';
       var slot = card.querySelector(".case-demo-slot");
       if(c.id === "overdraft" && c.demo === "live"){
         slot.appendChild(buildOverdraftDemo());
       } else if(c.id === "tracking" && c.demo === "live"){
         slot.appendChild(buildTrackingDemo());
+      } else if(c.id === "journeys" && c.demo === "live"){
+        slot.appendChild(buildJourneyDemo());
+      } else if(c.id === "callcenter" && c.demo === "live"){
+        slot.appendChild(buildCallCenterDemo());
       } else {
         var ph = document.createElement("div");
         ph.className = "placeholder-shell";
@@ -915,7 +999,47 @@
       Collections:{ dishonors:3, arrangement:"Payment plan active", bureauFlag:"2 defaults on file", queue:"Collections review queue" }
     };
 
-    var state = { portfolio:"Business", bizType:"Sole trader", years:4, turnover:42000, requested:15000, balance:9000, debt:20000, decided:false, lastScore:null };
+    // Financials differ by portfolio: different fields, ranges and defaults, mapped onto
+    // four generic scoring slots (primary cash flow / requested / balance buffer / existing debt).
+    var FIELD_SETS = {
+      Personal: {
+        yearsLabel:"Time banking with us",
+        fields:[
+          {slot:"primary",   id:"primary",   label:"Avg monthly income",       min:2000,  max:20000,  step:500,  def:6000,   prefix:"$", noun:"income"},
+          {slot:"requested", id:"requested", label:"Overdraft requested",      min:500,   max:15000,  step:500,  def:3000,   prefix:"$", noun:"request"},
+          {slot:"balance",   id:"balance",   label:"3-mo avg balance",         min:0,     max:10000,  step:250,  def:1200,   prefix:"$", noun:"balance"},
+          {slot:"debt",      id:"debt",      label:"Existing personal debt",   min:0,     max:60000,  step:1000, def:8000,   prefix:"$", noun:"debt"}
+        ]
+      },
+      Business: {
+        yearsLabel:"Time trading",
+        fields:[
+          {slot:"primary",   id:"primary",   label:"Avg monthly turnover",     min:5000,  max:150000, step:1000, def:42000,  prefix:"$", noun:"turnover"},
+          {slot:"requested", id:"requested", label:"Overdraft requested",      min:2000,  max:100000, step:1000, def:15000,  prefix:"$", noun:"request"},
+          {slot:"balance",   id:"balance",   label:"12-mo avg balance",        min:0,     max:80000,  step:1000, def:9000,   prefix:"$", noun:"balance"},
+          {slot:"debt",      id:"debt",      label:"Existing total debt",      min:0,     max:150000, step:1000, def:20000,  prefix:"$", noun:"debt"}
+        ]
+      },
+      Commercial: {
+        yearsLabel:"Time trading",
+        fields:[
+          {slot:"primary",   id:"primary",   label:"Avg monthly revenue",      min:20000, max:500000, step:5000, def:120000, prefix:"$", noun:"revenue"},
+          {slot:"requested", id:"requested", label:"Facility requested",       min:10000, max:300000, step:5000, def:60000,  prefix:"$", noun:"request"},
+          {slot:"balance",   id:"balance",   label:"12-mo avg balance",        min:0,     max:200000, step:5000, def:30000,  prefix:"$", noun:"balance"},
+          {slot:"debt",      id:"debt",      label:"Existing commercial debt", min:0,     max:500000, step:5000, def:80000,  prefix:"$", noun:"debt"}
+        ]
+      },
+      Collections: {
+        yearsLabel:"Time on this arrangement",
+        fields:[
+          {slot:"balance", id:"balance", label:"Outstanding arrears balance", min:0, max:20000,  step:500,  def:4000,  prefix:"$", noun:"arrears balance"},
+          {slot:"debt",    id:"debt",    label:"Active payment plan balance", min:0, max:100000, step:1000, def:15000, prefix:"$", noun:"payment plan balance"}
+        ]
+      }
+    };
+
+    var state = { portfolio:"Business", bizType:"Sole trader", years:4, decided:false, lastResult:null };
+    FIELD_SETS.Business.fields.forEach(function(f){ state[f.slot] = f.def; });
     var ARC = Math.PI * 80;
 
     function sliderRow(id,label,min,max,step,def,prefix,suffix){
@@ -927,7 +1051,7 @@
       '<div class="demo-label"><span class="eyebrow">Live decisioning workflow</span><span class="live-dot" aria-hidden="true"></span></div>' +
       '<span class="example-flag">Example application loaded — drag any control, the indicative score updates instantly</span>' +
 
-      '<div class="step-block">' +
+      '<div class="od-grid"><div class="step-block">' +
         '<div class="step-head"><span class="step-num n1">1</span><h5>Applicant</h5></div>' +
         '<div class="field-row"><label>Portfolio</label>' +
           '<div class="segmented" data-field="portfolio">' +
@@ -937,25 +1061,19 @@
             '<button type="button" data-value="Collections" aria-pressed="false">Collections</button>' +
           '</div>' +
         '</div>' +
-        '<div class="field-row"><label>Business type</label>' +
+        '<div class="field-row" id="bizType-row"><label>Business type</label>' +
           '<div class="segmented" data-field="bizType">' +
             '<button type="button" data-value="Sole trader" aria-pressed="true">Sole trader</button>' +
             '<button type="button" data-value="Partnership" aria-pressed="false">Partnership</button>' +
             '<button type="button" data-value="Company" aria-pressed="false">Company</button>' +
           '</div>' +
         '</div>' +
-        sliderRow("years","Time trading",0,15,1,4,""," yr") +
+        sliderRow("years","<span id=\"years-label\">Time trading</span>",0,15,1,4,""," yr") +
+      '</div>' +
+      '<div class="step-block" id="financials-block"></div>' +
       '</div>' +
 
-      '<div class="step-block">' +
-        '<div class="step-head"><span class="step-num n2">2</span><h5>Financials</h5></div>' +
-        sliderRow("turnover","Avg monthly turnover",5000,150000,1000,42000,"$","") +
-        sliderRow("requested","Overdraft requested",2000,100000,1000,15000,"$","") +
-        sliderRow("balance","12-mo avg balance",0,80000,1000,9000,"$","") +
-        sliderRow("debt","Existing total debt",0,150000,1000,20000,"$","") +
-      '</div>' +
-
-      '<div class="step-block">' +
+      '<div class="od-grid"><div class="step-block">' +
         '<div class="step-head"><span class="step-num n3">3</span><h5>Risk signals</h5></div>' +
         '<div class="system-panel" id="system-panel">' +
           '<div class="system-panel-head"><span class="sync-dot" aria-hidden="true"></span><span class="system-source">Pulled from core banking system</span></div>' +
@@ -989,6 +1107,7 @@
           '<div class="verdict-limit" id="verdict-limit"></div>' +
         '</div>' +
       '</div>' +
+      '</div>' +
 
       '<details class="compare-toggle"><summary>Manual process vs. this tool</summary>' +
         '<div class="compare-grid">' +
@@ -1015,7 +1134,7 @@
           seg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
           btn.setAttribute("aria-pressed","true");
           state[field] = btn.getAttribute("data-value");
-          if(field === "portfolio") refreshSystemPanel();
+          if(field === "portfolio"){ renderFinancials(); refreshSystemPanel(); }
           markStale();
           recompute();
         });
@@ -1042,24 +1161,50 @@
       }
     }
 
-    // wire sliders with live fill + live recompute
-    [["years","",""],["turnover","$",""],["requested","$",""],["balance","$",""],["debt","$",""]].forEach(function(cfg){
-      var id = cfg[0], prefix = cfg[1], suffix = cfg[2];
-      var input = wrap.querySelector("#"+id);
-      var out = wrap.querySelector("#"+id+"-val");
-      function paint(){
-        var pct = (input.value - input.min) / (input.max - input.min) * 100;
-        input.style.background = "linear-gradient(to right, var(--accent) "+pct+"%, var(--console-line) "+pct+"%)";
-        out.textContent = prefix + Number(input.value).toLocaleString() + (id==="years" ? " yr" : suffix);
-      }
+    function paintSlider(input, out, prefix, suffix){
+      var pct = (input.value - input.min) / (input.max - input.min) * 100;
+      input.style.background = "linear-gradient(to right, var(--accent) "+pct+"%, var(--console-line) "+pct+"%)";
+      out.textContent = prefix + Number(input.value).toLocaleString() + suffix;
+    }
+
+    // years slider is fixed across portfolios -- wire once
+    (function(){
+      var input = wrap.querySelector("#years");
+      var out = wrap.querySelector("#years-val");
       input.addEventListener("input", function(){
-        state[id] = Number(input.value);
-        paint();
+        state.years = Number(input.value);
+        paintSlider(input, out, "", " yr");
         markStale();
         recompute();
       });
-      paint();
-    });
+      paintSlider(input, out, "", " yr");
+    })();
+
+    // financials block is rebuilt per portfolio -- different fields, ranges and defaults
+    function renderFinancials(){
+      var fs = FIELD_SETS[state.portfolio];
+      var block = wrap.querySelector("#financials-block");
+      block.innerHTML =
+        '<div class="step-head"><span class="step-num n2">2</span><h5>Financials</h5></div>' +
+        fs.fields.map(function(f){ return sliderRow(f.id, f.label, f.min, f.max, f.step, f.def, f.prefix, ""); }).join("");
+
+      fs.fields.forEach(function(f){
+        state[f.slot] = f.def;
+        var input = block.querySelector("#"+f.id);
+        var out = block.querySelector("#"+f.id+"-val");
+        input.addEventListener("input", function(){
+          state[f.slot] = Number(input.value);
+          paintSlider(input, out, f.prefix, "");
+          markStale();
+          recompute();
+        });
+        paintSlider(input, out, f.prefix, "");
+      });
+
+      wrap.querySelector("#years-label").textContent = fs.yearsLabel;
+      wrap.querySelector("#bizType-row").style.display = (state.portfolio === "Personal" || state.portfolio === "Collections") ? "none" : "";
+
+    }
 
     function factorRow(name, detail, score){
       var cls = score > 0 ? "pos" : (score < 0 ? "neg" : "zero");
@@ -1067,52 +1212,97 @@
       return '<div class="factor"><span><span class="fname">'+name+'</span><span class="fdetail">'+detail+'</span></span><span class="fscore '+cls+'">'+sign+score+' pts</span></div>';
     }
 
-    function computeScore(){
-      var years = state.years, turnover = state.turnover, requested = state.requested,
-          balance = state.balance, dishonors = PORTFOLIOS[state.portfolio].dishonors, debt = state.debt;
+    // Collections accounts aren't requesting new credit, so this path skips the
+    // request/turnover fields entirely and scores on arrears position instead —
+    // a simplified, three-factor version of the same engine.
+    function computeCollectionsScore(){
+      var fs = FIELD_SETS.Collections;
+      var years = state.years, balance = state.balance, debt = state.debt,
+          dishonors = PORTFOLIOS.Collections.dishonors;
 
       var factors = [];
       var score = 50;
 
-      var coverage = turnover > 0 ? requested / turnover : 99;
-      var covPts = coverage <= 0.15 ? 30 : coverage <= 0.3 ? 15 : coverage <= 0.5 ? 0 : -25;
-      score += covPts;
-      factors.push(factorRow("Request vs. turnover", "requested is " + (coverage*100).toFixed(0) + "% of monthly turnover", covPts));
-
       var yearsPts = years >= 3 ? 20 : years >= 1 ? 8 : -10;
       score += yearsPts;
-      factors.push(factorRow("Trading history", years + " year(s) trading", yearsPts));
+      factors.push(factorRow(fs.yearsLabel, years + " year(s)", yearsPts));
 
-      var balRatio = requested > 0 ? balance / requested : 0;
-      var balPts = balRatio >= 0.5 ? 15 : balRatio >= 0.2 ? 5 : -5;
-      score += balPts;
-      factors.push(factorRow("Average balance buffer", "balance covers " + (balRatio*100).toFixed(0) + "% of request", balPts));
+      var arrearsRatio = debt > 0 ? balance / debt : 1;
+      var arrPts = arrearsRatio <= 0.1 ? 25 : arrearsRatio <= 0.3 ? 5 : -25;
+      score += arrPts;
+      factors.push(factorRow("Arrears position", "arrears balance is " + (arrearsRatio*100).toFixed(0) + "% of the payment plan balance", arrPts));
 
       var dishPts = dishonors === 0 ? 15 : dishonors <= 2 ? -10 : -30;
       score += dishPts;
       factors.push(factorRow("Payment history", (dishonors === 0 ? "0" : dishonors === 1 ? "1–2" : "3+") + " dishonor(s) in 6 months", dishPts));
 
-      var annualTurnover = turnover * 12;
-      var debtRatio = annualTurnover > 0 ? debt / annualTurnover : 99;
+      score = Math.max(0, Math.min(100, score));
+
+      var decision, badgeClass, limit, limitLabel;
+      if(score >= 70){
+        decision = "Arrangement maintained"; badgeClass = "approve";
+        limit = debt; limitLabel = "Payment plan stays at";
+      } else if(score >= 40){
+        decision = "Referred to collections review"; badgeClass = "refer";
+        limit = debt; limitLabel = "Under review at";
+      } else {
+        decision = "Escalated for recovery action"; badgeClass = "decline";
+        limit = balance; limitLabel = "Escalation threshold";
+      }
+
+      return { score:score, factors:factors, decision:decision, badgeClass:badgeClass, limit:limit, limitLabel:limitLabel };
+    }
+
+    function computeScore(){
+      if(state.portfolio === "Collections"){ return computeCollectionsScore(); }
+
+      var fs = FIELD_SETS[state.portfolio];
+      var primaryNoun = fs.fields[0].noun, balanceNoun = fs.fields[2].noun, debtNoun = fs.fields[3].noun;
+      var years = state.years, primary = state.primary, requested = state.requested,
+          balance = state.balance, dishonors = PORTFOLIOS[state.portfolio].dishonors, debt = state.debt;
+
+      var factors = [];
+      var score = 50;
+
+      var coverage = primary > 0 ? requested / primary : 99;
+      var covPts = coverage <= 0.15 ? 30 : coverage <= 0.3 ? 15 : coverage <= 0.5 ? 0 : -25;
+      score += covPts;
+      factors.push(factorRow("Request vs. " + primaryNoun, "requested is " + (coverage*100).toFixed(0) + "% of avg monthly " + primaryNoun, covPts));
+
+      var yearsPts = years >= 3 ? 20 : years >= 1 ? 8 : -10;
+      score += yearsPts;
+      factors.push(factorRow(fs.yearsLabel, years + " year(s)", yearsPts));
+
+      var balRatio = requested > 0 ? balance / requested : 0;
+      var balPts = balRatio >= 0.5 ? 15 : balRatio >= 0.2 ? 5 : -5;
+      score += balPts;
+      factors.push(factorRow("Balance buffer", balanceNoun + " covers " + (balRatio*100).toFixed(0) + "% of request", balPts));
+
+      var dishPts = dishonors === 0 ? 15 : dishonors <= 2 ? -10 : -30;
+      score += dishPts;
+      factors.push(factorRow("Payment history", (dishonors === 0 ? "0" : dishonors === 1 ? "1–2" : "3+") + " dishonor(s) in 6 months", dishPts));
+
+      var annualPrimary = primary * 12;
+      var debtRatio = annualPrimary > 0 ? debt / annualPrimary : 99;
       var debtPts = debtRatio <= 0.2 ? 10 : debtRatio <= 0.5 ? 0 : -20;
       score += debtPts;
-      factors.push(factorRow("Existing debt load", "debt is " + (debtRatio*100).toFixed(0) + "% of annual turnover", debtPts));
+      factors.push(factorRow("Existing debt load", debtNoun + " is " + (debtRatio*100).toFixed(0) + "% of annual " + primaryNoun, debtPts));
 
       score = Math.max(0, Math.min(100, score));
 
-      var decision, limit, badgeClass;
+      var decision, limit, badgeClass, limitLabel;
       if(score >= 70){
         decision = "Approved"; badgeClass = "approve";
-        limit = Math.min(requested, turnover * 0.4);
+        limit = Math.min(requested, primary * 0.4); limitLabel = "Suggested limit";
       } else if(score >= 40){
         decision = "Referred to Credit Assessment"; badgeClass = "refer";
-        limit = requested;
+        limit = requested; limitLabel = "Suggested limit";
       } else {
         decision = "Declined"; badgeClass = "decline";
-        limit = Math.max(0, turnover * 0.15);
+        limit = Math.max(0, primary * 0.15); limitLabel = "Suggested starting point";
       }
 
-      return { score:score, factors:factors, decision:decision, badgeClass:badgeClass, limit:limit };
+      return { score:score, factors:factors, decision:decision, badgeClass:badgeClass, limit:limit, limitLabel:limitLabel };
     }
 
     function recompute(){
@@ -1136,9 +1326,7 @@
       verdict.className = "verdict " + result.badgeClass;
       wrap.querySelector("#verdict-title").textContent = result.decision;
       wrap.querySelector("#verdict-sub").textContent = "score " + result.score + "/100";
-      wrap.querySelector("#verdict-limit").textContent = result.badgeClass === "decline"
-        ? "Suggested starting point: $" + Math.round(result.limit).toLocaleString()
-        : "Suggested limit: $" + Math.round(result.limit).toLocaleString();
+      wrap.querySelector("#verdict-limit").textContent = result.limitLabel + ": $" + Math.round(result.limit).toLocaleString();
 
       verdict.classList.remove("show");
       void verdict.offsetWidth;
@@ -1154,6 +1342,7 @@
       renderVerdict();
     });
 
+    renderFinancials();
     refreshSystemPanel();
     recompute();
     return wrap;
@@ -1363,6 +1552,464 @@
     return wrap;
   }
 
+  // ---------------- JOURNEY AUTOMATION DEMO ----------------
+  function buildJourneyDemo(){
+    var wrap = document.createElement("div");
+    wrap.className = "demo-shell";
+
+    var journeys = [
+      {
+        id:"prospect", label:"Prospect nurture",
+        entryType:"Trigger", entryDesc:"Fires the moment a prospect submits a tour request on the leasing site.",
+        sources:"Leasing site · Call center · CRM", cohort:182,
+        nodes:[
+          {type:"trigger", t:"Tour request submitted", d:"Web form · leasing site"},
+          {type:"wait", t:"Wait 1 hour", d:"Lets the auto-confirmation land first"},
+          {type:"email", t:"Send confirmation email", d:"“Your tour is confirmed — here's what to expect”"}
+        ],
+        split:{
+          q:"Email opened within 24 hrs?",
+          yes:[{type:"sms", t:"Send tour reminder text", d:"2 hours before the scheduled tour"}],
+          no:[{type:"wait", t:"Wait 1 day", d:""},{type:"email", t:"Send follow-up email", d:"“Still thinking it over?”"}]
+        },
+        goal:{t:"Application submitted", d:"Journey exits on conversion"},
+        funnel:[
+          {label:"Entered journey", count:182, pct:100},
+          {label:"Engaged (opened / clicked)", count:134, pct:74},
+          {label:"Tour attended", count:98, pct:54},
+          {label:"Application submitted", count:41, pct:23}
+        ],
+        outcome:{title:"41 applications submitted", sub:"23% of entrants · example cohort, illustrative"}
+      },
+      {
+        id:"movein", label:"Move-in welcome",
+        entryType:"Trigger", entryDesc:"Fires when a lease record changes to Signed in the leasing system.",
+        sources:"Leasing CRM · Property mgmt system · Resident portal", cohort:96,
+        nodes:[
+          {type:"trigger", t:"Lease signed", d:"Status change · leasing CRM"},
+          {type:"wait", t:"Wait until 3 days before move-in", d:"Date-based wait, not a fixed duration"},
+          {type:"email", t:"Send move-in checklist", d:"“Your move-in checklist + amenity access”"},
+          {type:"wait", t:"Wait until move-in date", d:""},
+          {type:"sms", t:"Send welcome text", d:"“Welcome home — here's your resident portal login”"},
+          {type:"wait", t:"Wait 14 days", d:""}
+        ],
+        split:{
+          q:"Resident portal activated?",
+          yes:[],
+          no:[{type:"email", t:"Send activation reminder", d:"“Don't miss out — activate your portal”"}]
+        },
+        goal:{t:"Resident portal activated", d:"Journey exits on conversion"},
+        funnel:[
+          {label:"Entered journey", count:96, pct:100},
+          {label:"Checklist engaged", count:81, pct:84},
+          {label:"Welcome text delivered", count:96, pct:100},
+          {label:"Portal activated within 14 days", count:74, pct:77}
+        ],
+        outcome:{title:"74 portals activated", sub:"77% within 14 days · example cohort, illustrative"}
+      },
+      {
+        id:"renewal", label:"Renewal save",
+        entryType:"Segment", entryDesc:"Dynamic segment, re-evaluated daily: lease expires in 60 days AND no renewal response on file.",
+        sources:"Leasing CRM · Property mgmt system · Engagement tracking", cohort:64,
+        nodes:[
+          {type:"segment", t:"Enters renewal-risk segment", d:"Dynamic segment · re-evaluated daily"},
+          {type:"email", t:"Send renewal outreach email", d:"“Let's talk about your renewal”"},
+          {type:"wait", t:"Wait 5 days", d:""}
+        ],
+        split:{
+          q:"Resident responded?",
+          yes:[],
+          no:[{type:"task", t:"Notify leasing consultant", d:"Task created for a personal follow-up call"}]
+        },
+        goal:{t:"Lease renewed", d:"Journey exits on renewal or move-out"},
+        funnel:[
+          {label:"Entered segment", count:64, pct:100},
+          {label:"Opened renewal email", count:42, pct:66},
+          {label:"Responded within 5 days", count:29, pct:45},
+          {label:"Lease renewed", count:23, pct:36}
+        ],
+        outcome:{title:"23 leases renewed", sub:"36% of at-risk segment · example cohort, illustrative"}
+      }
+    ];
+
+    wrap.innerHTML =
+      '<div class="demo-label"><span class="eyebrow">Live journey automation workflow</span><span class="live-dot" aria-hidden="true"></span></div>' +
+      '<span class="example-flag">Example cohort loaded — switch journeys or run the cohort to see it move through the funnel</span>' +
+      '<div class="od-grid">' +
+        '<div class="step-block">' +
+          '<div class="step-head"><span class="step-num n1">1</span><h5>Choose a journey</h5></div>' +
+          '<div class="segmented" id="journeyTabs" role="tablist"></div>' +
+          '<div class="entry-line"><span class="entry-kind" id="entryKind"></span><span id="entryDesc"></span></div>' +
+          '<div class="system-panel" id="syncPanel">' +
+            '<div class="system-panel-head"><span class="sync-dot" aria-hidden="true"></span><span class="system-source">Segment sync</span></div>' +
+            '<div class="system-row"><span class="k">Source systems</span><span class="v" id="syncSources"></span></div>' +
+            '<div class="system-row"><span class="k">Segment size</span><span class="v" id="syncSize"></span></div>' +
+            '<div class="system-row"><span class="k">Last synced</span><span class="v" id="syncTime">just now</span></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="step-block">' +
+          '<div class="step-head"><span class="step-num n2">2</span><h5>Journey canvas</h5></div>' +
+          '<div class="journey-canvas" id="journeyCanvas"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="step-block">' +
+        '<div class="step-head"><span class="step-num n3">3</span><h5>Run the cohort</h5></div>' +
+        '<div class="funnel-panel" id="funnelPanel"></div>' +
+        '<button type="button" class="run-btn" id="runBtn">Run cohort through this journey</button>' +
+        '<div class="outcome-callout" id="outcomeCallout">' +
+          '<div class="outcome-title" id="outcomeTitle">—</div>' +
+          '<div class="outcome-sub" id="outcomeSub">—</div>' +
+        '</div>' +
+      '</div>' +
+      '<details class="compare-toggle"><summary>Manual set-up vs. this platform</summary>' +
+        '<div class="compare-grid">' +
+          '<div class="compare-col"><h5>Before</h5><ol>' +
+            '<li>Marketer builds the same campaign by hand in each property’s system</li>' +
+            '<li>Segment lists exported and re-uploaded manually, going stale within days</li>' +
+            '<li>No consistent way to branch on whether a resident engaged</li>' +
+            '<li>Renewal outreach relies on someone remembering to check lease-expiry dates</li>' +
+          '</ol></div>' +
+          '<div class="compare-col"><h5>After</h5><ol>' +
+            '<li>One journey template configured once, applied automatically portfolio-wide</li>' +
+            '<li>Segments sync continuously from the source systems — always current</li>' +
+            '<li>Built-in branching sends different follow-ups based on engagement</li>' +
+            '<li>Renewal-risk segment triggers outreach automatically at the 60-day mark</li>' +
+          '</ol></div>' +
+        '</div>' +
+      '</details>';
+
+    var current = journeys[0];
+    var tabsEl = wrap.querySelector("#journeyTabs");
+    var canvasEl = wrap.querySelector("#journeyCanvas");
+    var funnelEl = wrap.querySelector("#funnelPanel");
+    var syncPanel = wrap.querySelector("#syncPanel");
+    var outcomeEl = wrap.querySelector("#outcomeCallout");
+
+    function nodeHTML(n){
+      return '<div class="jn-node" data-type="'+n.type+'">' +
+        '<span class="jn-type mono">'+n.type+'</span>' +
+        '<div class="jn-title">'+n.t+'</div>' +
+        (n.d ? '<div class="jn-detail">'+n.d+'</div>' : '') +
+      '</div>';
+    }
+    function connector(){ return '<div class="jn-connector"></div>'; }
+    function branchHTML(list, cls, label){
+      if(!list.length){
+        return '<div class="jn-branch '+cls+'"><div class="jn-branch-label">'+label+'</div><div class="jn-branch-empty">straight to goal</div></div>';
+      }
+      return '<div class="jn-branch '+cls+'"><div class="jn-branch-label">'+label+'</div>' +
+        list.map(function(n,i){ return (i>0?connector():'') + nodeHTML(n); }).join('') +
+      '</div>';
+    }
+
+    function renderTabs(){
+      tabsEl.innerHTML = journeys.map(function(j){
+        return '<button type="button" role="tab" aria-pressed="'+(j.id===current.id)+'" data-id="'+j.id+'">'+j.label+'</button>';
+      }).join('');
+      tabsEl.querySelectorAll('button').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          current = journeys.filter(function(j){ return j.id === btn.getAttribute('data-id'); })[0];
+          renderAll();
+        });
+      });
+    }
+
+    function renderEntry(){
+      wrap.querySelector('#entryKind').textContent = current.entryType + ' entry';
+      wrap.querySelector('#entryDesc').textContent = current.entryDesc;
+    }
+
+    function renderCanvas(){
+      var html = current.nodes.map(function(n,i){ return (i>0?connector():'') + nodeHTML(n); }).join('');
+      html += connector();
+      html += '<div class="jn-split"><span class="jn-type mono">split</span><div class="jn-title">'+current.split.q+'</div></div>';
+      html += connector();
+      html += '<div class="jn-branches">' + branchHTML(current.split.yes,'yes','YES') + branchHTML(current.split.no,'no','NO') + '</div>';
+      html += connector();
+      html += nodeHTML({type:'goal', t:current.goal.t, d:current.goal.d});
+      canvasEl.innerHTML = html;
+    }
+
+    function renderSync(){
+      wrap.querySelector('#syncSources').textContent = current.sources;
+      wrap.querySelector('#syncSize').textContent = current.cohort + ' contacts';
+      wrap.querySelector('#syncTime').textContent = 'just now';
+      syncPanel.classList.remove('refreshing');
+      void syncPanel.offsetWidth;
+      syncPanel.classList.add('refreshing');
+    }
+
+    function renderFunnel(){
+      var stepClasses = ['step1','step2','step3','step4'];
+      funnelEl.innerHTML = current.funnel.map(function(f,i){
+        return '<div class="funnel-row">' +
+          '<div class="funnel-head"><span class="flabel">'+f.label+'</span><span class="fcount mono">'+f.count+' · '+f.pct+'%</span></div>' +
+          '<div class="funnel-track"><div class="funnel-fill '+stepClasses[i]+'" data-pct="'+f.pct+'" style="width:0%"></div></div>' +
+        '</div>';
+      }).join('');
+      outcomeEl.classList.remove('show');
+    }
+
+    function renderAll(){
+      renderTabs(); renderEntry(); renderCanvas(); renderSync(); renderFunnel();
+    }
+
+    wrap.querySelector('#runBtn').addEventListener('click', function(){
+      renderSync();
+      var fills = funnelEl.querySelectorAll('.funnel-fill');
+      fills.forEach(function(f, i){
+        f.style.width = '0%';
+        setTimeout(function(){ f.style.width = f.getAttribute('data-pct') + '%'; }, 60 + i*160);
+      });
+      setTimeout(function(){
+        wrap.querySelector('#outcomeTitle').textContent = current.outcome.title;
+        wrap.querySelector('#outcomeSub').textContent = current.outcome.sub;
+        outcomeEl.classList.add('show');
+      }, 60 + fills.length*160 + 250);
+    });
+
+    renderAll();
+    return wrap;
+  }
+
+  // ---------------- CALL CENTER INSIGHTS DEMO ----------------
+  function buildCallCenterDemo(){
+    var wrap = document.createElement("div");
+    wrap.className = "demo-shell";
+    var ARC = Math.PI * 80;
+
+    var calls = [
+      {
+        id:"billing", label:"Billing dispute", agent:"Agent 14", team:"Consumer support",
+        duration:"6:42", queue:"Billing & payments",
+        transcript:"Customer disputes a $38 late fee after a payment was submitted one day before the due date.",
+        factors:[
+          {n:"Opened with customer's name", d:"used within first 15 seconds", s:8},
+          {n:"Acknowledged the frustration", d:"named the issue before defending policy", s:10},
+          {n:"Talk/listen ratio", d:"agent talked 38% of the call", s:6},
+          {n:"Placed on hold twice", d:"3:10 total hold time, no reason given first time", s:-12},
+          {n:"Resolution confirmed", d:"asked whether that resolved it before closing", s:9},
+          {n:"Required disclosure read", d:"fee-waiver policy line was skipped", s:-15}
+        ],
+        tips:[
+          "Read the fee-waiver disclosure every time a waiver is granted — this is a compliance gap, not a coaching nice-to-have.",
+          "State a reason and an expected duration before placing a customer on hold.",
+          "The close was a genuine strength — keep confirming resolution explicitly, it's landing well with customers."
+        ]
+      },
+      {
+        id:"scheduling", label:"Service scheduling", agent:"Agent 22", team:"Field services",
+        duration:"4:05", queue:"Scheduling",
+        transcript:"Customer reschedules a maintenance visit and asks about the technician's arrival window.",
+        factors:[
+          {n:"Opened with customer's name", d:"used within first 15 seconds", s:8},
+          {n:"Talk/listen ratio", d:"agent talked 51% of the call", s:0},
+          {n:"Offered self-service option", d:"pointed customer to the live tracking portal", s:10},
+          {n:"Filler words", d:"1.8 per minute, slightly above target", s:-4},
+          {n:"Resolution confirmed", d:"confirmed the new date and window aloud", s:9},
+          {n:"Handled without transfer", d:"resolved in a single queue", s:8}
+        ],
+        tips:[
+          "Strong call — the self-service pointer is exactly the kind of behavior worth reinforcing team-wide.",
+          "Filler-word rate is slightly high; a short pause reads as more confident than “um, so, yeah.”",
+          "Nothing blocking here — keep an eye on talk/listen ratio trending toward 50/50."
+        ]
+      },
+      {
+        id:"troubleshoot", label:"Equipment troubleshooting", agent:"Agent 09", team:"Technical support",
+        duration:"11:20", queue:"Technical support",
+        transcript:"Customer's device won't connect after a firmware update; call runs long working through steps.",
+        factors:[
+          {n:"Opened with customer's name", d:"not used during the call", s:-6},
+          {n:"Talk/listen ratio", d:"agent talked 63% of the call", s:-8},
+          {n:"Empathy statement used", d:"none noted in the first 5 minutes", s:-10},
+          {n:"Technical accuracy", d:"steps matched the current troubleshooting guide", s:12},
+          {n:"Resolution confirmed", d:"device reconnected and confirmed working", s:9},
+          {n:"Call length vs. topic norm", d:"11:20 vs. 6:30 average for this issue type", s:-10}
+        ],
+        tips:[
+          "Lead with a quick empathy line before diving into steps — long technical calls land better when the customer feels heard early.",
+          "Talk/listen ratio is high for a troubleshooting call; more confirming questions would surface the fix faster.",
+          "The technical steps were accurate and the issue got resolved — pacing is the gap here, not competence."
+        ]
+      }
+    ];
+
+    var agentRollup = [
+      {agent:"Agent 22", calls:34, score:91},
+      {agent:"Agent 31", calls:28, score:85},
+      {agent:"Agent 27", calls:37, score:78},
+      {agent:"Agent 14", calls:41, score:66},
+      {agent:"Agent 09", calls:19, score:47}
+    ];
+
+    wrap.innerHTML =
+      '<div class="demo-label"><span class="eyebrow">Live call-scoring workflow</span><span class="live-dot" aria-hidden="true"></span></div>' +
+      '<span class="example-flag">Example calls loaded — pick a call to see the AI scoring and coaching output</span>' +
+
+      '<div class="od-grid">' +
+        '<div class="step-block">' +
+          '<div class="step-head"><span class="step-num n1">1</span><h5>Select a call</h5></div>' +
+          '<div class="segmented" id="callTabs" role="tablist"></div>' +
+          '<div class="entry-line"><span class="entry-kind" id="callKind">Call summary</span><span id="callDesc"></span></div>' +
+          '<div class="system-panel" id="callMeta">' +
+            '<div class="system-panel-head"><span class="sync-dot" aria-hidden="true"></span><span class="system-source">Call metadata</span></div>' +
+            '<div class="system-row"><span class="k">Agent</span><span class="v" id="metaAgent">—</span></div>' +
+            '<div class="system-row"><span class="k">Team</span><span class="v" id="metaTeam">—</span></div>' +
+            '<div class="system-row"><span class="k">Duration</span><span class="v" id="metaDuration">—</span></div>' +
+            '<div class="system-row"><span class="k">Queue</span><span class="v" id="metaQueue">—</span></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="decision-panel">' +
+          '<div class="step-head"><span class="step-num n2">2</span><h5>AI call analysis</h5></div>' +
+          '<div class="gauge-row">' +
+            '<div class="gauge-wrap">' +
+              '<svg viewBox="0 0 200 120" class="gauge">' +
+                '<path class="gauge-track" d="M20,110 A80,80 0 0 1 180,110" fill="none" stroke-width="16"/>' +
+                '<path class="gauge-fill" id="cc-gauge-fill" d="M20,110 A80,80 0 0 1 180,110" fill="none" stroke-width="16" stroke-linecap="round" stroke-dasharray="'+ARC+'" stroke-dashoffset="'+ARC+'"/>' +
+              '</svg>' +
+              '<div class="gauge-center"><span class="gauge-score" id="cc-gauge-score">0</span><span class="gauge-max">/100</span></div>' +
+            '</div>' +
+            '<div class="decision-summary">' +
+              '<span class="eyebrow" style="color:var(--console-muted);">Coaching score</span>' +
+              '<span class="decision-badge" id="cc-badge" style="margin-top:2px;">—</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="factor-list" id="cc-factor-list"></div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="step-block">' +
+        '<div class="step-head"><span class="step-num n3">3</span><h5>Coaching guidance</h5></div>' +
+        '<button type="button" class="decide-btn" id="cc-coach-btn">Get coaching summary</button>' +
+        '<div class="verdict" id="cc-verdict">' +
+          '<div class="verdict-title" id="cc-verdict-title">—</div>' +
+          '<div class="verdict-sub" id="cc-verdict-sub">—</div>' +
+          '<ul style="text-align:left;margin-top:12px;padding-left:20px;display:grid;gap:8px;font-size:.85rem;color:var(--console-ink);" id="cc-tip-list"></ul>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="funnel-panel" id="cc-rollup">' +
+        '<div class="step-head" style="margin-bottom:2px;"><span class="step-num n4">4</span><h5>Leadership rollup — team scores this week</h5></div>' +
+      '</div>' +
+
+      '<details class="compare-toggle"><summary>Manual QA sampling vs. this platform</summary>' +
+        '<div class="compare-grid">' +
+          '<div class="compare-col"><h5>Before</h5><ol>' +
+            '<li>A small random sample of calls (roughly 2%) gets manually reviewed each week</li>' +
+            '<li>Scoring is a spreadsheet checklist filled in by a QA lead</li>' +
+            '<li>Coaching feedback reaches the agent days or weeks after the call</li>' +
+            '<li>Leadership sees team trends only at the end of a reporting cycle</li>' +
+          '</ol></div>' +
+          '<div class="compare-col"><h5>After</h5><ol>' +
+            '<li>Every call is scored automatically against the same rubric</li>' +
+            '<li>Agents get specific, per-call coaching points, not a pass/fail grade</li>' +
+            '<li>Coaching is available before the agent’s next shift</li>' +
+            '<li>Leadership sees a live rollup of what’s actually driving team results</li>' +
+          '</ol></div>' +
+        '</div>' +
+      '</details>';
+
+    var current = calls[0];
+    var tabsEl = wrap.querySelector("#callTabs");
+
+    function ccFactorRow(name, detail, score){
+      var cls = score > 0 ? "pos" : (score < 0 ? "neg" : "zero");
+      var sign = score > 0 ? "+" : "";
+      return '<div class="factor"><span><span class="fname">'+name+'</span><span class="fdetail">'+detail+'</span></span><span class="fscore '+cls+'">'+sign+score+' pts</span></div>';
+    }
+
+    function scoreFor(call){
+      var total = 60;
+      call.factors.forEach(function(f){ total += f.s; });
+      return Math.max(0, Math.min(100, total));
+    }
+
+    function bandFor(score){
+      if(score >= 80) return { cls:"approve", label:"Strong call" };
+      if(score >= 55) return { cls:"refer", label:"Mixed — coaching opportunities" };
+      return { cls:"decline", label:"Needs coaching" };
+    }
+
+    function renderTabs(){
+      tabsEl.innerHTML = calls.map(function(c){
+        return '<button type="button" role="tab" aria-pressed="'+(c.id===current.id)+'" data-id="'+c.id+'">'+c.label+'</button>';
+      }).join('');
+      tabsEl.querySelectorAll('button').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          current = calls.filter(function(c){ return c.id === btn.getAttribute('data-id'); })[0];
+          renderAll();
+        });
+      });
+    }
+
+    function renderMeta(){
+      wrap.querySelector('#callDesc').textContent = current.transcript;
+      wrap.querySelector('#metaAgent').textContent = current.agent;
+      wrap.querySelector('#metaTeam').textContent = current.team;
+      wrap.querySelector('#metaDuration').textContent = current.duration;
+      wrap.querySelector('#metaQueue').textContent = current.queue;
+      var panel = wrap.querySelector('#callMeta');
+      panel.classList.remove('refreshing');
+      void panel.offsetWidth;
+      panel.classList.add('refreshing');
+    }
+
+    function renderAnalysis(){
+      var score = scoreFor(current);
+      var band = bandFor(score);
+      var gaugeColor = band.cls === "approve" ? "var(--status-approve)" : band.cls === "refer" ? "var(--status-refer)" : "var(--status-decline)";
+      var fill = wrap.querySelector('#cc-gauge-fill');
+      fill.style.stroke = gaugeColor;
+      fill.setAttribute('stroke-dashoffset', (ARC * (1 - score/100)).toFixed(1));
+      wrap.querySelector('#cc-gauge-score').textContent = score;
+      var badge = wrap.querySelector('#cc-badge');
+      badge.className = "decision-badge " + band.cls;
+      badge.textContent = band.label;
+      wrap.querySelector('#cc-factor-list').innerHTML = current.factors.map(function(f){ return ccFactorRow(f.n, f.d, f.s); }).join('');
+      wrap.querySelector('#cc-verdict').classList.remove('show');
+    }
+
+    function renderVerdict(){
+      var score = scoreFor(current);
+      var band = bandFor(score);
+      var verdict = wrap.querySelector('#cc-verdict');
+      verdict.className = "verdict " + band.cls;
+      wrap.querySelector('#cc-verdict-title').textContent = band.label;
+      wrap.querySelector('#cc-verdict-sub').textContent = current.agent + " · score " + score + "/100";
+      wrap.querySelector('#cc-tip-list').innerHTML = current.tips.map(function(t){ return '<li>'+t+'</li>'; }).join('');
+      verdict.classList.remove('show');
+      void verdict.offsetWidth;
+      verdict.classList.add('show');
+    }
+
+    function renderRollup(){
+      var rollupEl = wrap.querySelector('#cc-rollup');
+      var sorted = agentRollup.slice().sort(function(a,b){ return b.score - a.score; });
+      rollupEl.querySelectorAll('.funnel-row').forEach(function(r){ r.remove(); });
+      var rows = sorted.map(function(a){
+        var featured = a.agent === current.agent;
+        return '<div class="funnel-row">' +
+          '<div class="funnel-head"><span class="flabel"'+(featured ? ' style="color:var(--accent2);font-weight:700;"' : '')+'>'+a.agent+(featured ? ' · this call' : '')+'</span><span class="fcount mono">'+a.calls+' calls · '+a.score+'/100</span></div>' +
+          '<div class="funnel-track"><div class="funnel-fill" data-pct="'+a.score+'" style="width:0%;'+(featured ? 'background:var(--accent2);' : '')+'"></div></div>' +
+        '</div>';
+      }).join('');
+      rollupEl.insertAdjacentHTML('beforeend', rows);
+      requestAnimationFrame(function(){
+        rollupEl.querySelectorAll('.funnel-fill').forEach(function(f){ f.style.width = f.getAttribute('data-pct') + '%'; });
+      });
+    }
+
+    function renderAll(){
+      renderTabs(); renderMeta(); renderAnalysis(); renderRollup();
+    }
+
+    wrap.querySelector('#cc-coach-btn').addEventListener('click', renderVerdict);
+
+    renderAll();
+    return wrap;
+  }
+
   // ---------------- RENDER: SKILLS ----------------
   var skillsGrid = document.getElementById("skills-grid");
   skills.forEach(function(s){
@@ -1386,6 +2033,59 @@
   renderFilters();
   renderCases();
 
+  // ---------------- EXPORT TO PDF ----------------
+  var exportBtn = document.getElementById("export-pdf-btn");
+  if(exportBtn){
+    exportBtn.addEventListener("click", function(){
+      // Show every case study for the printout, regardless of the active filter chip
+      var priorTag = activeTag;
+      var filterChanged = activeTag !== "all";
+      if(filterChanged){
+        activeTag = "all";
+        renderFilters();
+        renderCases();
+      }
+
+      // Expand every career entry instead of just the most recent
+      var priorOpen = [];
+      document.querySelectorAll(".t-item").forEach(function(item){
+        priorOpen.push(item.getAttribute("data-open"));
+        item.setAttribute("data-open", "true");
+      });
+
+      // Open every "manual process vs. this tool" comparison
+      var priorDetails = [];
+      document.querySelectorAll(".compare-toggle").forEach(function(d){
+        priorDetails.push(d.open);
+        d.open = true;
+      });
+
+      // Reveal each demo's result panel instead of leaving it blank pre-interaction
+      document.querySelectorAll("#decide-btn, #runBtn, #cc-coach-btn").forEach(function(btn){
+        btn.click();
+      });
+
+      function restore(){
+        if(filterChanged){
+          activeTag = priorTag;
+          renderFilters();
+          renderCases();
+        }
+        document.querySelectorAll(".t-item").forEach(function(item, i){
+          item.setAttribute("data-open", priorOpen[i]);
+        });
+        document.querySelectorAll(".compare-toggle").forEach(function(d, i){
+          d.open = priorDetails[i];
+        });
+        window.removeEventListener("afterprint", restore);
+      }
+      window.addEventListener("afterprint", restore);
+
+      // Give the reveal animations (funnel bars, gauge fill, verdict stamp) time to settle
+      setTimeout(function(){ window.print(); }, 1600);
+    });
+  }
+
   // ---------------- REVEAL ON SCROLL ----------------
   function observeReveals(){
     if(!("IntersectionObserver" in window)){
@@ -1402,5 +2102,4 @@
   observeReveals();
 })();
 </script>
-</body>
-</html>
+</body></html>
