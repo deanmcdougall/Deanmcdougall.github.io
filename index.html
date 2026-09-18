@@ -153,10 +153,9 @@
   }
 
   .wrap{ max-width:920px; margin-inline:auto; }
-  section{ padding-block:48px; }
-  @media (min-width:900px){ section{ padding-block:72px; } }
-  #experience{ border-top:1px solid var(--line); }
-  #skills{ border-top:1px solid var(--line); }
+  section{ padding-block:40px; }
+  @media (min-width:900px){ section{ padding-block:56px; } }
+  #experience, #skills, #approach, #work{ border-top:1px solid var(--line); }
   .hero-adjacent{ padding-block-start:24px; }
   @media (min-width:900px){ .hero-adjacent{ padding-block-start:28px; } }
   .hero-adjacent .section-head{ margin-bottom:28px; }
@@ -544,10 +543,8 @@
   .track-actions button.primary:hover:not(:disabled){ background:var(--accent-strong); color:var(--accent-ink); }
   .stage-tabs.segmented{ display:flex; flex-wrap:wrap; }
 
-  .compare-toggle summary{ cursor:pointer; font-size:.82rem; color:var(--console-muted); font-family:var(--font-mono); list-style:none; margin-top:8px; }
-  .compare-toggle summary::-webkit-details-marker{ display:none; }
-  .compare-toggle summary::before{ content:"+ "; color:var(--accent-strong); }
-  .compare-toggle[open] summary::before{ content:"– "; }
+  .compare-block{ margin-top:20px; padding-top:16px; border-top:1px dashed var(--console-line); }
+  .compare-title{ font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--console-muted); font-family:var(--font-mono); font-weight:600; }
   .compare-grid{ display:grid; gap:14px; margin-top:14px; }
   @media (min-width:480px){ .compare-grid{ grid-template-columns:1fr 1fr; } }
   .compare-col{ border:1px solid var(--console-line); border-radius:calc(var(--radius,8px) - 2px); padding:14px; }
@@ -621,10 +618,13 @@
   .principle p{ color:var(--ink-muted); margin-top:8px; font-size:.92rem; }
 
   /* ---------- Credentials strip ---------- */
-  .creds{ display:flex; flex-wrap:wrap; gap:14px 32px; margin-top:8px; }
-  .cred{ display:flex; flex-direction:column; gap:2px; }
-  .cred .org{ font-weight:600; font-family:var(--font-serif); }
-  .cred .what{ font-size:.85rem; color:var(--ink-muted); }
+  .creds-block{ margin-top:48px; padding-top:32px; border-top:1px solid var(--ink); }
+  .creds-block h3{ font-size:1.2rem; margin-top:8px; font-weight:600; }
+  .creds{ display:grid; gap:16px; margin-top:22px; }
+  @media (min-width:640px){ .creds{ grid-template-columns:repeat(3,1fr); } }
+  .cred{ border-left:2px solid var(--accent-strong); padding-left:16px; display:flex; flex-direction:column; gap:4px; }
+  .cred .org{ font-weight:700; font-family:var(--font-serif); font-size:1.08rem; }
+  .cred .what{ font-size:.86rem; color:var(--ink-muted); }
 
   /* ---------- Footer ---------- */
   footer{ padding-block:32px; text-align:center; color:var(--ink-muted); font-size:.8rem; border-top:1px solid var(--line); font-family:var(--font-mono); }
@@ -824,8 +824,8 @@
       </div>
       <div class="stat-row">
         <div class="stat"><span class="stat-num">11+</span><span class="stat-label">years in product management &amp; process improvement</span></div>
-        <div class="stat"><span class="stat-num">5</span><span class="stat-label">industries transformed</span></div>
-        <div class="stat"><span class="stat-num">6</span><span class="stat-label">countries — cross-functional teams led across</span></div>
+        <div class="stat"><span class="stat-num">48 FTE</span><span class="stat-label">reassigned to higher-value work through process-improvement initiatives</span></div>
+        <div class="stat"><span class="stat-num">MBA</span><span class="stat-label">Digital Transformation — Massey University</span></div>
       </div>
     </div>
   </section>
@@ -857,8 +857,9 @@
     </div>
     <div class="principles" id="principles"></div>
 
-    <div style="margin-top:56px;" data-reveal>
-      <p class="eyebrow" style="margin-bottom:14px;">Education &amp; certification</p>
+    <div class="creds-block" data-reveal>
+      <p class="eyebrow">Credentials</p>
+      <h3>Education &amp; certification</h3>
       <div class="creds">
         <div class="cred"><span class="org">Massey University</span><span class="what">MBA, Digital Transformation</span></div>
         <div class="cred"><span class="org">Massey University</span><span class="what">Bachelor of Business, Management</span></div>
@@ -1217,7 +1218,7 @@
       '</div>' +
       '</div>' +
 
-      '<details class="compare-toggle"><summary>Manual process vs. this tool</summary>' +
+      '<div class="compare-block"><p class="compare-title">Manual process vs. this tool</p>' +
         '<div class="compare-grid">' +
           '<div class="compare-col"><h5>Before</h5><ol>' +
             '<li>Business owner submits paper application</li>' +
@@ -1232,7 +1233,7 @@
             '<li>Decision returned in seconds</li>' +
           '</ol></div>' +
         '</div>' +
-      '</details>';
+      '</div>';
 
     // wire segmented controls
     wrap.querySelectorAll(".segmented").forEach(function(seg){
@@ -1557,7 +1558,7 @@
         '<div class="track-actions" id="track-actions"></div>' +
       '</div>' +
 
-      '<details class="compare-toggle"><summary>Before vs. after</summary>' +
+      '<div class="compare-block"><p class="compare-title">Before vs. after</p>' +
         '<div class="compare-grid">' +
           '<div class="compare-col"><h5>Before</h5><ol>' +
             '<li>Customer only given a multi-hour arrival window</li>' +
@@ -1572,7 +1573,7 @@
             '<li>Support only needed for same-day changes</li>' +
           '</ol></div>' +
         '</div>' +
-      '</details>';
+      '</div>';
 
     function renderActions(mode){
       var el = wrap.querySelector("#track-actions");
@@ -1769,7 +1770,7 @@
           '<div class="outcome-sub" id="outcomeSub">—</div>' +
         '</div>' +
       '</div>' +
-      '<details class="compare-toggle"><summary>Manual set-up vs. this platform</summary>' +
+      '<div class="compare-block"><p class="compare-title">Manual set-up vs. this platform</p>' +
         '<div class="compare-grid">' +
           '<div class="compare-col"><h5>Before</h5><ol>' +
             '<li>Marketer builds the same campaign by hand in each property’s system</li>' +
@@ -1784,7 +1785,7 @@
             '<li>Renewal-risk segment triggers outreach automatically at the 60-day mark</li>' +
           '</ol></div>' +
         '</div>' +
-      '</details>';
+      '</div>';
 
     var current = journeys[0];
     var tabsEl = wrap.querySelector("#journeyTabs");
@@ -2001,7 +2002,7 @@
         '<div class="step-head" style="margin-bottom:2px;"><span class="step-num n4">4</span><h5>Leadership rollup — team scores this week</h5></div>' +
       '</div>' +
 
-      '<details class="compare-toggle"><summary>Manual QA sampling vs. this platform</summary>' +
+      '<div class="compare-block"><p class="compare-title">Manual QA sampling vs. this platform</p>' +
         '<div class="compare-grid">' +
           '<div class="compare-col"><h5>Before</h5><ol>' +
             '<li>A small random sample of calls (roughly 2%) gets manually reviewed each week</li>' +
@@ -2016,7 +2017,7 @@
             '<li>Leadership sees a live rollup of what’s actually driving team results</li>' +
           '</ol></div>' +
         '</div>' +
-      '</details>';
+      '</div>';
 
     var current = calls[0];
     var tabsEl = wrap.querySelector("#callTabs");
@@ -2161,13 +2162,6 @@
         item.setAttribute("data-open", "true");
       });
 
-      // Open every "manual process vs. this tool" comparison
-      var priorDetails = [];
-      document.querySelectorAll(".compare-toggle").forEach(function(d){
-        priorDetails.push(d.open);
-        d.open = true;
-      });
-
       // Reveal each demo's result panel instead of leaving it blank pre-interaction
       document.querySelectorAll("#decide-btn, #runBtn, #cc-coach-btn").forEach(function(btn){
         btn.click();
@@ -2181,9 +2175,6 @@
         }
         document.querySelectorAll(".t-item").forEach(function(item, i){
           item.setAttribute("data-open", priorOpen[i]);
-        });
-        document.querySelectorAll(".compare-toggle").forEach(function(d, i){
-          d.open = priorDetails[i];
         });
         window.removeEventListener("afterprint", restore);
       }
