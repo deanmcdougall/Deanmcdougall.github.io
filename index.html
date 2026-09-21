@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#F7F1E4;color:#221D15}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Dean McDougall</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -745,33 +745,135 @@
     --accent3:#7FBFA0; --accent3-strong:#A6D9BF; --accent3-soft:#1E332B;
   }
 
-  /* ---------- Print / Export PDF ---------- */
+  /* ---------- Print / Export PDF: purpose-built ~6-page portfolio layout ----------
+     p1  masthead + compact two-column career summary
+     p2  skills, approach, credentials, case-study index
+     p3-6 one case study per page (brief + scaled demo snapshot + before/after) */
+  .print-only{ display:none; }
   @media print{
     :root, :root[data-theme="dark"]{
-      --bg:#ffffff !important; --surface:#ffffff !important; --surface-alt:#f2eee2 !important;
-      --ink:#1c1811 !important; --ink-muted:#4a4336 !important; --line:#c9bd9e !important;
+      --bg:#ffffff !important; --surface:#ffffff !important; --surface-alt:#f4f0e6 !important;
+      --ink:#1c1811 !important; --ink-muted:#4a4336 !important; --line:#d6cbb0 !important;
       --accent:#7a2c1a !important; --accent-strong:#5c2012 !important; --accent-ink:#ffffff !important; --accent-soft:#efdccd !important;
       --accent2:#24384b !important; --accent2-strong:#182636 !important; --accent2-ink:#ffffff !important; --accent2-soft:#dbe3ea !important;
       --accent3:#425a38 !important; --accent3-strong:#2f4127 !important; --accent3-soft:#dbe6d2 !important;
       --gold:#8a6620 !important; --gold-strong:#6b4e14 !important; --gold-ink:#ffffff !important; --gold-soft:#efe1bd !important;
-      --console-bg:#ffffff !important; --console-line:#c9bd9e !important; --console-ink:#1c1811 !important; --console-muted:#544c3d !important;
       --status-approve:#2d6b3d !important; --status-approve-soft:#dcefe0 !important;
       --status-refer:#8a6116 !important; --status-refer-soft:#f3e6c8 !important;
       --status-decline:#8a2f27 !important; --status-decline-soft:#f3dcd8 !important;
       --shadow:none !important;
       color-scheme:light !important;
     }
-    @page{ margin:0.6in; }
-    body{ background:#fff !important; padding-inline:0 !important; font-size:11pt; }
-    .wrap{ max-width:100%; }
-    section{ padding-block:20pt !important; }
+    /* Dark-mode visitors: force each demo back onto its light skin */
+    .case[data-case] .demo-shell{ color-scheme:light; }
+    :root .case[data-case="overdraft"] .demo-shell{ --console-bg:#F1F3F7 !important; --console-line:#C9D2DE !important; --console-ink:#1c1811 !important; --console-muted:#4f5663 !important; --accent:#2C4A6E !important; --accent-strong:#1D3450 !important; --accent-ink:#F4F7FA !important; }
+    :root .case[data-case="tracking"] .demo-shell{ --console-bg:#FBF3E6 !important; --console-line:#E3C48F !important; --console-ink:#1c1811 !important; --console-muted:#5a4c38 !important; --accent:#B5601E !important; --accent-strong:#8A4614 !important; --accent-ink:#FFF6EA !important; }
+    :root .case[data-case="journeys"] .demo-shell{ --console-bg:#F1F5EC !important; --console-line:#C9DBBD !important; --console-ink:#1c1811 !important; --console-muted:#4c5645 !important; --accent:#5B7B4F !important; --accent-strong:#425A38 !important; --accent-ink:#F5FAF1 !important; --accent3:#5B8A82 !important; --accent3-strong:#3F625C !important; }
+    :root .case[data-case="callcenter"] .demo-shell{ --console-bg:#F0F4F4 !important; --console-line:#C3D3D2 !important; --console-ink:#1c1811 !important; --console-muted:#4a5655 !important; --accent:#3B6664 !important; --accent-strong:#274543 !important; --accent-ink:#F0F7F6 !important; }
+
+    @page{
+      size:letter; margin:0.6in 0.6in 0.55in;
+      @top-left{ content:"Dean McDougall — Product Portfolio"; font:600 7.5pt 'JetBrains Mono', monospace; letter-spacing:.08em; text-transform:uppercase; color:#6c6152; }
+      @top-right{ content:"deanmcdougall@icloud.com"; font:7.5pt 'JetBrains Mono', monospace; color:#6c6152; }
+      @bottom-right{ content:counter(page) " / " counter(pages); font:7.5pt 'JetBrains Mono', monospace; color:#6c6152; }
+    }
+    @page :first{ @top-left{ content:none; } @top-right{ content:none; } }
+
+    html{ scroll-behavior:auto; }
+    body{ background:#fff !important; padding-inline:0 !important; font-size:9.5pt; line-height:1.45; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .wrap{ max-width:none; }
+
+    /* Scroll-reveal must never hide content on paper */
+    [data-reveal]{ opacity:1 !important; transform:none !important; transition:none !important; }
+    *{ animation:none !important; transition:none !important; }
+
     header.nav, .filter-row, .decide-btn, .run-btn, #cc-coach-btn,
-    .track-actions, .stale-note, .t-chev, .t-hint, .no-print{ display:none !important; }
+    .track-actions, .stale-note, .t-chev, .t-hint, .no-print, footer{ display:none !important; }
     input[type="range"]{ display:none; }
-    .hero-section{ padding-block:0 8pt !important; }
-    .masthead, .demo-shell{ box-shadow:none !important; }
-    .case, .t-item, .skill-card, .principle{ box-shadow:none !important; break-inside:avoid; page-break-inside:avoid; }
-    .live-dot, .sync-dot{ animation:none !important; }
+    .print-only{ display:block; }
+
+    section{ padding-block:0 !important; border-top:none !important; }
+    h2, h3, h4, h5, .eyebrow, .section-head{ break-after:avoid; page-break-after:avoid; }
+    .section-head{ margin-bottom:10pt !important; max-width:none; }
+    .section-head h2{ font-size:15pt; margin-top:2pt; }
+    .section-head p{ margin-top:4pt; font-size:9pt; }
+
+    /* ---- Page 1: masthead ---- */
+    .hero-section{ padding:0 !important; }
+    .masthead{ padding-block:12pt 14pt; }
+    .masthead-top{ margin-bottom:12pt; }
+    .masthead-main{ grid-template-columns:auto 1fr !important; gap:16pt; }
+    .hero-photo{ width:78px; height:90px; }
+    .masthead h1{ font-size:17pt; }
+    .masthead .lede{ font-size:9.5pt; margin-top:8pt; max-width:none; }
+    .cta-row{ margin-top:10pt; }
+    .btn{ padding:4pt 8pt; font-size:8pt; }
+    .btn-ghost{ text-decoration:none; }
+    .btn-ghost::after{ content:" · linkedin.com/in/deanamcdougall"; color:var(--ink-muted); font-weight:400; }
+
+    /* ---- Page 1: career as a compact two-column summary ---- */
+    #experience{ margin-top:16pt; }
+    .timeline{ padding-left:0; display:grid; grid-template-columns:1fr 1fr; column-gap:22pt; row-gap:10pt; }
+    .timeline::before, .t-dot{ display:none; }
+    .t-item{ padding:0 0 0 9pt !important; border-left:2px solid var(--line); break-inside:avoid; }
+    .t-item.current{ border-left-color:var(--accent-strong); }
+    .t-head{ padding:0 0 3pt; border-bottom:none !important; }
+    .t-role{ font-size:10pt; }
+    .t-meta{ font-size:7.5pt; margin-top:1pt; }
+    .t-body{ grid-template-rows:1fr !important; }
+    .t-body ul{ margin:3pt 0 0; padding-left:0; list-style:none; gap:3pt; font-size:8.5pt; }
+    .t-body li:not(.t-impact){ display:none; }
+    .t-body li.t-impact{ font-weight:500; }
+    .impact-label{ display:none; }
+
+    /* ---- Page 2: skills / approach / credentials / index ---- */
+    #skills{ break-before:page; page-break-before:always; }
+    .skills-grid{ grid-template-columns:1fr 1fr !important; }
+    .skill-card{ padding:9pt 11pt; break-inside:avoid; }
+    .skill-card h3{ font-size:9.5pt; }
+    .skill-card .pills{ gap:4pt; margin-top:6pt; }
+    .pill{ padding:2pt 6pt; font-size:7.5pt; }
+    #approach{ margin-top:20pt; }
+    .principles{ grid-template-columns:repeat(3,1fr) !important; gap:14pt; }
+    .principle{ padding-top:8pt; break-inside:avoid; }
+    .principle h3{ font-size:10pt; margin-top:4pt; }
+    .principle p{ font-size:8.5pt; margin-top:4pt; }
+    .creds-block{ margin-top:18pt; padding-top:12pt; break-inside:avoid; }
+    .creds-block h3{ font-size:11pt; }
+    .creds{ grid-template-columns:repeat(3,1fr) !important; margin-top:8pt; gap:12pt; }
+    .cred .org{ font-size:10pt; }
+    .cred .what{ font-size:8.5pt; }
+
+    #work{ margin-top:18pt; padding-top:12pt !important; border-top:1px solid var(--ink) !important; }
+    .print-index{ display:grid; grid-template-columns:1fr 1fr; gap:6pt 22pt; margin:0; padding:0; list-style:none; counter-reset:ci; }
+    .print-index li{ counter-increment:ci; display:grid; grid-template-columns:auto 1fr; column-gap:8pt; font-size:8.5pt; break-inside:avoid; }
+    .print-index li::before{ content:"0" counter(ci); font-family:var(--font-mono); color:var(--accent-strong); font-weight:700; grid-row:span 2; }
+    .print-index .pi-title{ font-family:var(--font-serif); font-weight:600; font-size:10pt; }
+    .print-index .pi-sub{ color:var(--ink-muted); }
+
+    /* ---- Pages 3–6: one case study per page ---- */
+    .case{ break-before:page; page-break-before:always; margin:0 !important; padding-top:0; border-top:none; box-shadow:none !important; }
+    .case-top{ border-bottom:2px solid var(--ink); padding-bottom:8pt; }
+    .case h3{ font-size:16pt; margin-top:6pt; }
+    .case .industry{ font-size:9pt; margin-top:2pt; }
+    .case-intro{ grid-template-columns:repeat(3,1fr) !important; gap:12pt; margin-top:10pt; }
+    .case-block h4{ font-size:7pt; margin-bottom:3pt; }
+    .case-block p{ font-size:8.5pt; }
+    .outcome-box{ padding:8pt 10pt; }
+    .case-demo-full{ margin-top:12pt; padding:0; }
+    .case-demo-slot{ zoom:.56; }
+    .case[data-case="journeys"] .case-demo-slot{ zoom:.43; }
+    .case[data-case="callcenter"] .case-demo-slot{ zoom:.46; }
+    .demo-shell{ max-width:none; padding:16px; gap:14px; min-height:0; }
+    .case[data-case="tracking"] .route-map{ width:100%; max-width:860px; margin-inline:auto; }
+    .case[data-case="tracking"] .track-card{ grid-template-columns:1fr; }
+    .od-grid{ grid-template-columns:1fr 1fr !important; }
+    .compare-section{ max-width:none; margin-top:14px; padding-top:10px; }
+    .compare-col{ padding:10px 12px; }
+    .compare-title{ font-size:.95rem; }
+    .compare-col h5{ font-size:.9rem; }
+    .compare-col ol{ font-size:1rem; gap:3px; }
+    .compare-grid{ grid-template-columns:1fr 1fr !important; }
     a{ text-decoration:none; }
   }
 
@@ -866,6 +968,7 @@
       <p>These are de-identified, rebuilt versions of tools I led product for — same logic, generic company names, no confidential data. All four are fully interactive: drag the controls, run the workflow, see the outcome.</p>
     </div>
 
+    <ol class="print-index print-only" id="print-index"></ol>
     <div class="filter-row" id="filters"></div>
     <div id="cases"></div>
   </section>
@@ -2152,6 +2255,14 @@
 
   renderFilters();
   renderCases();
+
+  // Print-only case-study index (page 2 of the exported PDF)
+  var printIndex = document.getElementById("print-index");
+  if(printIndex){
+    printIndex.innerHTML = cases.map(function(c){
+      return '<li><span class="pi-title">' + c.title + '</span><span class="pi-sub">' + c.industry + '</span></li>';
+    }).join("");
+  }
 
   // ---------------- EXPORT TO PDF ----------------
   var exportBtn = document.getElementById("export-pdf-btn");
