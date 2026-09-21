@@ -850,6 +850,34 @@
   html.pdf-mode .compare-col h5{ font-size:.9rem; }
   html.pdf-mode .compare-col ol{ font-size:1rem; gap:3px; }
   html.pdf-mode a{ text-decoration:none; }
+  /* Paper can't be interacted with: drop the "try it" hints and secondary panels so the
+     taller demos print at a readable size (WebKit also enforces a minimum font size in print,
+     which makes very small zooms print taller than measured) */
+  html.pdf-mode .example-flag,
+  html.pdf-mode .case[data-case="journeys"] #syncPanel,
+  html.pdf-mode .case[data-case="callcenter"] #callMeta{ display:none !important; }
+  /* Tall demos re-flowed into two balanced columns for paper, so they print at a readable size */
+  html.pdf-mode .case[data-case="journeys"] .demo-shell,
+  html.pdf-mode .case[data-case="callcenter"] .demo-shell{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; }
+  html.pdf-mode .case[data-case="journeys"] .demo-shell{ grid-template-rows:auto auto 1fr; }
+  html.pdf-mode .case[data-case="callcenter"] .demo-shell{ grid-template-rows:auto auto 1fr auto; }
+  html.pdf-mode .case[data-case="journeys"] .demo-shell > .demo-label,
+  html.pdf-mode .case[data-case="callcenter"] .demo-shell > .demo-label{ grid-column:1 / -1; grid-row:1; }
+  html.pdf-mode .case[data-case="journeys"] .od-grid,
+  html.pdf-mode .case[data-case="callcenter"] .od-grid{ display:contents; }
+  html.pdf-mode .case[data-case="journeys"] .step-block,
+  html.pdf-mode .case[data-case="callcenter"] .step-block,
+  html.pdf-mode .case[data-case="callcenter"] .decision-panel{ height:auto; }
+  /* journeys: [choose journey + run cohort] | [journey canvas] */
+  html.pdf-mode .case[data-case="journeys"] .od-grid > :nth-child(1){ grid-column:1; grid-row:2; }
+  html.pdf-mode .case[data-case="journeys"] .od-grid > :nth-child(2){ grid-column:2; grid-row:2 / span 2; }
+  html.pdf-mode .case[data-case="journeys"] .demo-shell > .step-block{ grid-column:1; grid-row:3; }
+  /* call center: [select call + team rollup] | [AI analysis], coaching full width underneath */
+  html.pdf-mode .case[data-case="callcenter"] .od-grid > :nth-child(1){ grid-column:1; grid-row:2; }
+  html.pdf-mode .case[data-case="callcenter"] .od-grid > :nth-child(2){ grid-column:2; grid-row:2 / span 2; }
+  html.pdf-mode .case[data-case="callcenter"] .demo-shell > .funnel-panel{ grid-column:1; grid-row:3; }
+  html.pdf-mode .case[data-case="callcenter"] .demo-shell > .step-block{ grid-column:1 / -1; grid-row:4; }
+
 
   @media print{
     :root, :root[data-theme="dark"]{
@@ -2265,7 +2293,7 @@
   // Print layout lives under html.pdf-mode. fitPdfPages() measures each printed page at
   // print width and scales it so it fills one sheet, which keeps Chrome and WebKit
   // (Safari / DuckDuckGo) identical instead of relying on engine-specific page logic.
-  var PAGE_H = 9.5 * 96;   // usable height of a Letter/A4 sheet after margins, with a safety gap
+  var PAGE_H = 9.2 * 96;   // usable height of a Letter/A4 sheet after margins, with a safety gap for WebKit
   var root = document.documentElement;
 
   function runhead(pageNo, total){
