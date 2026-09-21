@@ -745,11 +745,112 @@
     --accent3:#7FBFA0; --accent3-strong:#A6D9BF; --accent3-soft:#1E332B;
   }
 
-  /* ---------- Print / Export PDF: purpose-built ~6-page portfolio layout ----------
-     p1  masthead + compact two-column career summary
-     p2  skills, approach, credentials, case-study index
-     p3-6 one case study per page (brief + scaled demo snapshot + before/after) */
-  .print-only{ display:none; }
+  /* ---------- Print / Export PDF: fitted ~6-page portfolio layout ----------
+     Layout lives under html.pdf-mode (added on Export click and on beforeprint) so the
+     page can be measured on screen at print width and each printed page scaled to fill
+     exactly one sheet. Works the same in Chrome and WebKit (Safari / DuckDuckGo).
+     p1  masthead + career + skills
+     p2  approach, credentials, case-study index
+     p3+ one case study per page */
+  .print-only, .print-runhead{ display:none; }
+  .pdf-overlay{ position:fixed; inset:0; z-index:100; background:var(--bg); display:none; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); }
+  html.pdf-preparing .pdf-overlay{ display:flex; }
+
+  html.pdf-mode body{ width:7.1in; margin-inline:auto; padding-inline:0 !important; font-size:9.5pt; line-height:1.45; }
+  html.pdf-mode .wrap{ max-width:none; }
+  html.pdf-mode [data-reveal]{ opacity:1 !important; transform:none !important; transition:none !important; }
+  html.pdf-mode *{ animation:none !important; transition:none !important; }
+  html.pdf-mode header.nav, html.pdf-mode .filter-row, html.pdf-mode .decide-btn, html.pdf-mode .run-btn, html.pdf-mode #cc-coach-btn,
+  html.pdf-mode .track-actions, html.pdf-mode .stale-note, html.pdf-mode .t-chev, html.pdf-mode .t-hint, html.pdf-mode .no-print, html.pdf-mode footer{ display:none !important; }
+  html.pdf-mode input[type="range"]{ display:none; }
+  html.pdf-mode .print-only{ display:block; }
+  html.pdf-mode .print-runhead{
+    display:flex; justify-content:space-between; gap:12pt; padding-bottom:5pt; margin-bottom:14pt; border-bottom:1px solid var(--line);
+    font-family:var(--font-mono); font-size:7.5pt; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-muted);
+  }
+  html.pdf-mode .print-runhead .rh-mail{ text-transform:none; letter-spacing:0; }
+
+  html.pdf-mode section{ padding-block:0 !important; border-top:none !important; }
+  html.pdf-mode h2, html.pdf-mode h3, html.pdf-mode h4, html.pdf-mode h5, html.pdf-mode .eyebrow, html.pdf-mode .section-head{ break-after:avoid; page-break-after:avoid; }
+  html.pdf-mode .section-head{ margin-bottom:10pt !important; max-width:none; }
+  html.pdf-mode .section-head h2{ font-size:15pt; margin-top:2pt; }
+  html.pdf-mode .section-head p{ margin-top:4pt; font-size:9pt; }
+
+  /* Page 1: masthead, career, skills */
+  html.pdf-mode .hero-section{ padding:0 !important; }
+  html.pdf-mode .masthead{ padding-block:12pt 14pt; }
+  html.pdf-mode .masthead-top{ margin-bottom:12pt; }
+  html.pdf-mode .masthead-main{ grid-template-columns:auto 1fr !important; gap:16pt; }
+  html.pdf-mode .hero-photo{ width:78px; height:90px; }
+  html.pdf-mode .masthead h1{ font-size:17pt; }
+  html.pdf-mode .masthead .lede{ font-size:9.5pt; margin-top:8pt; max-width:none; }
+  html.pdf-mode .cta-row{ margin-top:10pt; }
+  html.pdf-mode .btn{ padding:4pt 8pt; font-size:8pt; }
+  html.pdf-mode .btn-ghost{ text-decoration:none; }
+  html.pdf-mode .btn-ghost::after{ content:" · linkedin.com/in/deanamcdougall"; color:var(--ink-muted); font-weight:400; }
+
+  html.pdf-mode #experience{ margin-top:18pt; }
+  html.pdf-mode .timeline{ padding-left:0; display:grid; grid-template-columns:1fr 1fr; column-gap:22pt; row-gap:12pt; }
+  html.pdf-mode .timeline::before, html.pdf-mode .t-dot{ display:none; }
+  html.pdf-mode .t-item{ padding:0 0 0 9pt !important; border-left:2px solid var(--line); break-inside:avoid; }
+  html.pdf-mode .t-item.current{ border-left-color:var(--accent-strong); }
+  html.pdf-mode .t-head{ padding:0 0 3pt; border-bottom:none !important; }
+  html.pdf-mode .t-role{ font-size:10pt; }
+  html.pdf-mode .t-meta{ font-size:7.5pt; margin-top:1pt; }
+  html.pdf-mode .t-body{ grid-template-rows:1fr !important; }
+  html.pdf-mode .t-body ul{ margin:3pt 0 0; padding-left:0; list-style:none; gap:3pt; font-size:8.5pt; }
+  html.pdf-mode .t-body li:not(.t-impact){ display:none; }
+  html.pdf-mode .t-body li.t-impact{ font-weight:500; }
+  html.pdf-mode .impact-label{ display:none; }
+
+  html.pdf-mode #skills{ margin-top:20pt; }
+  html.pdf-mode .skills-grid{ grid-template-columns:1fr 1fr !important; }
+  html.pdf-mode .skill-card{ padding:9pt 11pt; break-inside:avoid; }
+  html.pdf-mode .skill-card h3{ font-size:9.5pt; }
+  html.pdf-mode .skill-card .pills{ gap:4pt; margin-top:6pt; }
+  html.pdf-mode .pill{ padding:2pt 6pt; font-size:7.5pt; }
+
+  /* Page 2: approach, credentials, case-study index */
+  html.pdf-mode #approach{ break-before:page; page-break-before:always; }
+  html.pdf-mode .principles{ grid-template-columns:repeat(3,1fr) !important; gap:14pt; }
+  html.pdf-mode .principle{ padding-top:8pt; break-inside:avoid; }
+  html.pdf-mode .principle h3{ font-size:10.5pt; margin-top:4pt; }
+  html.pdf-mode .principle p{ font-size:9pt; margin-top:4pt; }
+  html.pdf-mode .creds-block{ margin-top:22pt; padding-top:14pt; break-inside:avoid; }
+  html.pdf-mode .creds-block h3{ font-size:11pt; }
+  html.pdf-mode .creds{ grid-template-columns:repeat(3,1fr) !important; margin-top:8pt; gap:12pt; }
+  html.pdf-mode .cred .org{ font-size:10pt; }
+  html.pdf-mode .cred .what{ font-size:8.5pt; }
+  html.pdf-mode #work{ margin-top:22pt; padding-top:14pt !important; border-top:1px solid var(--ink) !important; }
+  html.pdf-mode .print-index{ display:grid; grid-template-columns:1fr 1fr; gap:14pt 22pt; margin:4pt 0 0; padding:0; list-style:none; counter-reset:ci; }
+  html.pdf-mode .print-index li{ counter-increment:ci; display:grid; grid-template-columns:auto 1fr; column-gap:8pt; row-gap:2pt; font-size:8.5pt; break-inside:avoid; border-top:1px solid var(--line); padding-top:8pt; }
+  html.pdf-mode .print-index li::before{ content:"0" counter(ci); font-family:var(--font-mono); color:var(--accent-strong); font-weight:700; grid-row:span 3; }
+  html.pdf-mode .print-index .pi-title{ font-family:var(--font-serif); font-weight:600; font-size:10.5pt; }
+  html.pdf-mode .print-index .pi-sub{ color:var(--ink-muted); font-style:italic; font-family:var(--font-serif); }
+  html.pdf-mode .print-index .pi-out{ color:var(--ink); margin-top:2pt; }
+
+  /* Pages 3+: one case study per page, demo zoom set by fitPdfPages() */
+  html.pdf-mode .case{ break-before:page; page-break-before:always; margin:0 !important; padding-top:0; border-top:none; box-shadow:none !important; }
+  html.pdf-mode .case-top{ border-bottom:2px solid var(--ink); padding-bottom:8pt; }
+  html.pdf-mode .case h3{ font-size:16pt; margin-top:6pt; }
+  html.pdf-mode .case .industry{ font-size:9pt; margin-top:2pt; }
+  html.pdf-mode .case-intro{ grid-template-columns:repeat(3,1fr) !important; gap:12pt; margin-top:10pt; }
+  html.pdf-mode .case-block h4{ font-size:7pt; margin-bottom:3pt; }
+  html.pdf-mode .case-block p{ font-size:8.5pt; }
+  html.pdf-mode .outcome-box{ padding:8pt 10pt; }
+  html.pdf-mode .case-demo-full{ margin-top:12pt; padding:0; }
+  html.pdf-mode .case-demo-slot{ zoom:.55; }
+  html.pdf-mode .demo-shell{ max-width:none; padding:16px; gap:14px; min-height:0; }
+  html.pdf-mode .od-grid{ grid-template-columns:1fr 1fr !important; }
+  html.pdf-mode .case[data-case="tracking"] .route-map{ width:100%; max-width:860px; margin-inline:auto; }
+  html.pdf-mode .compare-section{ max-width:none; margin-top:14px; padding-top:10px; }
+  html.pdf-mode .compare-title{ font-size:.95rem; }
+  html.pdf-mode .compare-grid{ grid-template-columns:1fr 1fr !important; }
+  html.pdf-mode .compare-col{ padding:10px 12px; }
+  html.pdf-mode .compare-col h5{ font-size:.9rem; }
+  html.pdf-mode .compare-col ol{ font-size:1rem; gap:3px; }
+  html.pdf-mode a{ text-decoration:none; }
+
   @media print{
     :root, :root[data-theme="dark"]{
       --bg:#ffffff !important; --surface:#ffffff !important; --surface-alt:#f4f0e6 !important;
@@ -771,112 +872,14 @@
     :root .case[data-case="journeys"] .demo-shell{ --console-bg:#F1F5EC !important; --console-line:#C9DBBD !important; --console-ink:#1c1811 !important; --console-muted:#4c5645 !important; --accent:#5B7B4F !important; --accent-strong:#425A38 !important; --accent-ink:#F5FAF1 !important; --accent3:#5B8A82 !important; --accent3-strong:#3F625C !important; }
     :root .case[data-case="callcenter"] .demo-shell{ --console-bg:#F0F4F4 !important; --console-line:#C3D3D2 !important; --console-ink:#1c1811 !important; --console-muted:#4a5655 !important; --accent:#3B6664 !important; --accent-strong:#274543 !important; --accent-ink:#F0F7F6 !important; }
 
-    @page{
-      size:letter; margin:0.6in 0.6in 0.55in;
-      @top-left{ content:"Dean McDougall — Product Portfolio"; font:600 7.5pt 'JetBrains Mono', monospace; letter-spacing:.08em; text-transform:uppercase; color:#6c6152; }
-      @top-right{ content:"deanmcdougall@icloud.com"; font:7.5pt 'JetBrains Mono', monospace; color:#6c6152; }
-      @bottom-right{ content:counter(page) " / " counter(pages); font:7.5pt 'JetBrains Mono', monospace; color:#6c6152; }
-    }
-    @page :first{ @top-left{ content:none; } @top-right{ content:none; } }
-
-    html{ scroll-behavior:auto; }
-    body{ background:#fff !important; padding-inline:0 !important; font-size:9.5pt; line-height:1.45; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    .wrap{ max-width:none; }
-
-    /* Scroll-reveal must never hide content on paper */
-    [data-reveal]{ opacity:1 !important; transform:none !important; transition:none !important; }
-    *{ animation:none !important; transition:none !important; }
-
-    header.nav, .filter-row, .decide-btn, .run-btn, #cc-coach-btn,
-    .track-actions, .stale-note, .t-chev, .t-hint, .no-print, footer{ display:none !important; }
-    input[type="range"]{ display:none; }
-    .print-only{ display:block; }
-
-    section{ padding-block:0 !important; border-top:none !important; }
-    h2, h3, h4, h5, .eyebrow, .section-head{ break-after:avoid; page-break-after:avoid; }
-    .section-head{ margin-bottom:10pt !important; max-width:none; }
-    .section-head h2{ font-size:15pt; margin-top:2pt; }
-    .section-head p{ margin-top:4pt; font-size:9pt; }
-
-    /* ---- Page 1: masthead ---- */
-    .hero-section{ padding:0 !important; }
-    .masthead{ padding-block:12pt 14pt; }
-    .masthead-top{ margin-bottom:12pt; }
-    .masthead-main{ grid-template-columns:auto 1fr !important; gap:16pt; }
-    .hero-photo{ width:78px; height:90px; }
-    .masthead h1{ font-size:17pt; }
-    .masthead .lede{ font-size:9.5pt; margin-top:8pt; max-width:none; }
-    .cta-row{ margin-top:10pt; }
-    .btn{ padding:4pt 8pt; font-size:8pt; }
-    .btn-ghost{ text-decoration:none; }
-    .btn-ghost::after{ content:" · linkedin.com/in/deanamcdougall"; color:var(--ink-muted); font-weight:400; }
-
-    /* ---- Page 1: career as a compact two-column summary ---- */
-    #experience{ margin-top:16pt; }
-    .timeline{ padding-left:0; display:grid; grid-template-columns:1fr 1fr; column-gap:22pt; row-gap:10pt; }
-    .timeline::before, .t-dot{ display:none; }
-    .t-item{ padding:0 0 0 9pt !important; border-left:2px solid var(--line); break-inside:avoid; }
-    .t-item.current{ border-left-color:var(--accent-strong); }
-    .t-head{ padding:0 0 3pt; border-bottom:none !important; }
-    .t-role{ font-size:10pt; }
-    .t-meta{ font-size:7.5pt; margin-top:1pt; }
-    .t-body{ grid-template-rows:1fr !important; }
-    .t-body ul{ margin:3pt 0 0; padding-left:0; list-style:none; gap:3pt; font-size:8.5pt; }
-    .t-body li:not(.t-impact){ display:none; }
-    .t-body li.t-impact{ font-weight:500; }
-    .impact-label{ display:none; }
-
-    /* ---- Page 2: skills / approach / credentials / index ---- */
-    #skills{ break-before:page; page-break-before:always; }
-    .skills-grid{ grid-template-columns:1fr 1fr !important; }
-    .skill-card{ padding:9pt 11pt; break-inside:avoid; }
-    .skill-card h3{ font-size:9.5pt; }
-    .skill-card .pills{ gap:4pt; margin-top:6pt; }
-    .pill{ padding:2pt 6pt; font-size:7.5pt; }
-    #approach{ margin-top:20pt; }
-    .principles{ grid-template-columns:repeat(3,1fr) !important; gap:14pt; }
-    .principle{ padding-top:8pt; break-inside:avoid; }
-    .principle h3{ font-size:10pt; margin-top:4pt; }
-    .principle p{ font-size:8.5pt; margin-top:4pt; }
-    .creds-block{ margin-top:18pt; padding-top:12pt; break-inside:avoid; }
-    .creds-block h3{ font-size:11pt; }
-    .creds{ grid-template-columns:repeat(3,1fr) !important; margin-top:8pt; gap:12pt; }
-    .cred .org{ font-size:10pt; }
-    .cred .what{ font-size:8.5pt; }
-
-    #work{ margin-top:18pt; padding-top:12pt !important; border-top:1px solid var(--ink) !important; }
-    .print-index{ display:grid; grid-template-columns:1fr 1fr; gap:6pt 22pt; margin:0; padding:0; list-style:none; counter-reset:ci; }
-    .print-index li{ counter-increment:ci; display:grid; grid-template-columns:auto 1fr; column-gap:8pt; font-size:8.5pt; break-inside:avoid; }
-    .print-index li::before{ content:"0" counter(ci); font-family:var(--font-mono); color:var(--accent-strong); font-weight:700; grid-row:span 2; }
-    .print-index .pi-title{ font-family:var(--font-serif); font-weight:600; font-size:10pt; }
-    .print-index .pi-sub{ color:var(--ink-muted); }
-
-    /* ---- Pages 3–6: one case study per page ---- */
-    .case{ break-before:page; page-break-before:always; margin:0 !important; padding-top:0; border-top:none; box-shadow:none !important; }
-    .case-top{ border-bottom:2px solid var(--ink); padding-bottom:8pt; }
-    .case h3{ font-size:16pt; margin-top:6pt; }
-    .case .industry{ font-size:9pt; margin-top:2pt; }
-    .case-intro{ grid-template-columns:repeat(3,1fr) !important; gap:12pt; margin-top:10pt; }
-    .case-block h4{ font-size:7pt; margin-bottom:3pt; }
-    .case-block p{ font-size:8.5pt; }
-    .outcome-box{ padding:8pt 10pt; }
-    .case-demo-full{ margin-top:12pt; padding:0; }
-    .case-demo-slot{ zoom:.56; }
-    .case[data-case="journeys"] .case-demo-slot{ zoom:.43; }
-    .case[data-case="callcenter"] .case-demo-slot{ zoom:.46; }
-    .demo-shell{ max-width:none; padding:16px; gap:14px; min-height:0; }
-    .case[data-case="tracking"] .route-map{ width:100%; max-width:860px; margin-inline:auto; }
-    .case[data-case="tracking"] .track-card{ grid-template-columns:1fr; }
-    .od-grid{ grid-template-columns:1fr 1fr !important; }
-    .compare-section{ max-width:none; margin-top:14px; padding-top:10px; }
-    .compare-col{ padding:10px 12px; }
-    .compare-title{ font-size:.95rem; }
-    .compare-col h5{ font-size:.9rem; }
-    .compare-col ol{ font-size:1rem; gap:3px; }
-    .compare-grid{ grid-template-columns:1fr 1fr !important; }
-    a{ text-decoration:none; }
+    @page{ size:letter; margin:0.5in 0.55in; }
+    html, body{ background:#fff !important; }
+    body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .pdf-overlay{ display:none !important; }
+    /* Safety net if print is triggered without the pdf-mode class */
+    [data-reveal]{ opacity:1 !important; transform:none !important; }
+    header.nav, .filter-row, .no-print{ display:none !important; }
   }
-
 </style>
 
 <header class="nav">
@@ -898,6 +901,7 @@
   </div>
 </header>
 
+<div class="pdf-overlay" aria-hidden="true">Preparing PDF…</div>
 <main class="wrap">
 
   <!-- HERO -->
@@ -2253,14 +2257,80 @@
   var printIndex = document.getElementById("print-index");
   if(printIndex){
     printIndex.innerHTML = cases.map(function(c){
-      return '<li><span class="pi-title">' + c.title + '</span><span class="pi-sub">' + c.industry + '</span></li>';
+      return '<li><span class="pi-title">' + c.title + '</span><span class="pi-sub">' + c.industry + '</span><span class="pi-out">' + c.outcome + '</span></li>';
     }).join("");
   }
 
   // ---------------- EXPORT TO PDF ----------------
+  // Print layout lives under html.pdf-mode. fitPdfPages() measures each printed page at
+  // print width and scales it so it fills one sheet, which keeps Chrome and WebKit
+  // (Safari / DuckDuckGo) identical instead of relying on engine-specific page logic.
+  var PAGE_H = 9.5 * 96;   // usable height of a Letter/A4 sheet after margins, with a safety gap
+  var root = document.documentElement;
+
+  function runhead(pageNo, total){
+    var el = document.createElement("div");
+    el.className = "print-runhead";
+    el.innerHTML = '<span>Dean McDougall — Product Portfolio</span><span class="rh-mail">deanmcdougall@icloud.com</span><span>' + pageNo + ' / ' + total + '</span>';
+    return el;
+  }
+  function setZoom(els, z){ els.forEach(function(e){ e.style.zoom = z; }); }
+  function span(first, last){ return last.getBoundingClientRect().bottom - first.getBoundingClientRect().top; }
+  // Largest zoom in [lo, hi] whose measured height still fits on one page
+  function fit(els, measure, lo, hi){
+    setZoom(els, hi);
+    if(measure() <= PAGE_H) return hi;
+    for(var i = 0; i < 9; i++){
+      var mid = (lo + hi) / 2;
+      setZoom(els, mid);
+      if(measure() <= PAGE_H) lo = mid; else hi = mid;
+    }
+    setZoom(els, lo);
+    return lo;
+  }
+
+  function fitPdfPages(){
+    root.classList.add("pdf-mode");
+    document.querySelectorAll(".print-runhead").forEach(function(r){ r.remove(); });
+    var caseEls = Array.prototype.slice.call(document.querySelectorAll("#cases .case"));
+    var total = 2 + caseEls.length;
+
+    // Page 1: masthead + career + skills
+    var p1 = [document.querySelector(".hero-section"), document.getElementById("experience"), document.getElementById("skills")];
+    fit(p1, function(){ return span(p1[0], p1[2]); }, 0.75, 1.3);
+
+    // Page 2: approach + credentials + case-study index
+    var approach = document.getElementById("approach");
+    approach.insertBefore(runhead(2, total), approach.firstChild);
+    var p2 = [approach, document.querySelector("#work .section-head"), document.getElementById("print-index")];
+    fit(p2, function(){ return span(p2[0], p2[2]); }, 0.75, 1.3);
+
+    // Pages 3+: one case each; scale only the demo so the brief stays readable
+    caseEls.forEach(function(card, i){
+      card.insertBefore(runhead(3 + i, total), card.firstChild);
+      var slot = [card.querySelector(".case-demo-slot")];
+      fit(slot, function(){ return card.getBoundingClientRect().height; }, 0.3, 0.9);
+    });
+  }
+
+  function clearPdfMode(){
+    root.classList.remove("pdf-mode", "pdf-preparing");
+    document.querySelectorAll(".print-runhead").forEach(function(r){ r.remove(); });
+    document.querySelectorAll(".hero-section, #experience, #skills, #approach, #work .section-head, #print-index, .case-demo-slot")
+      .forEach(function(e){ e.style.zoom = ""; });
+  }
+
+  var exportInProgress = false;
+  // Covers Cmd/Ctrl+P as well as the button
+  window.addEventListener("beforeprint", function(){ if(!exportInProgress) fitPdfPages(); });
+  window.addEventListener("afterprint", function(){ if(!exportInProgress) clearPdfMode(); });
+
   var exportBtn = document.getElementById("export-pdf-btn");
   if(exportBtn){
     exportBtn.addEventListener("click", function(){
+      exportInProgress = true;
+      root.classList.add("pdf-preparing");
+
       // Show every case study for the printout, regardless of the active filter chip
       var priorTag = activeTag;
       var filterChanged = activeTag !== "all";
@@ -2283,6 +2353,9 @@
       });
 
       function restore(){
+        window.removeEventListener("afterprint", restore);
+        exportInProgress = false;
+        clearPdfMode();
         if(filterChanged){
           activeTag = priorTag;
           renderFilters();
@@ -2291,12 +2364,14 @@
         document.querySelectorAll(".t-item").forEach(function(item, i){
           item.setAttribute("data-open", priorOpen[i]);
         });
-        window.removeEventListener("afterprint", restore);
       }
       window.addEventListener("afterprint", restore);
 
-      // Give the reveal animations (funnel bars, gauge fill, verdict stamp) time to settle
-      setTimeout(function(){ window.print(); }, 1600);
+      // Let the reveal animations (funnel bars, gauge fill, verdict stamp) settle, then fit and print
+      setTimeout(function(){
+        fitPdfPages();
+        requestAnimationFrame(function(){ window.print(); });
+      }, 1600);
     });
   }
 
