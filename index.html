@@ -11,6 +11,62 @@
   window.gtag=function(){dataLayer.push(arguments);};
   gtag('js', new Date());
   gtag('config', 'G-F42LH10E7L');
+
+  // Click tracking: one listener for every clickable thing on the page.
+  // Only real visitor actions count (programmatic clicks, e.g. from Export PDF, are ignored).
+  function txt(el){
+    var role=el.querySelector && el.querySelector('.t-role');
+    var t=((role&&role.textContent)||el.getAttribute('aria-label')||el.textContent||el.value||el.id||el.tagName).replace(/\s+/g,' ').trim();
+    return t.slice(0,80);
+  }
+  function where(el){
+    var c=el.closest('[data-case]'), sec=el.closest('section[id]');
+    return {
+      click_section: el.closest('header.nav') ? 'nav' : (sec ? sec.id : (el.closest('footer') ? 'footer' : 'hero')),
+      click_case: c ? c.getAttribute('data-case') : '(none)'
+    };
+  }
+  var SEL='a,button,summary,[role="tab"],[role="button"],.chip,.t-head,select,input[type="checkbox"],input[type="radio"]';
+  document.addEventListener('click',function(e){
+    if(!e.isTrusted) return;
+    var el=e.target.closest(SEL); if(!el) return;
+    var p=where(el);
+    p.click_label=txt(el);
+    p.click_type=el.tagName.toLowerCase();
+    var href=el.getAttribute && el.getAttribute('href');
+    if(href){
+      p.link_url=href.slice(0,100);
+      if(/^mailto:/.test(href)) { p.click_type='email'; gtag('event','contact_click',{method:'email'}); }
+      else if(/linkedin\.com/.test(href)) { p.click_type='linkedin'; gtag('event','contact_click',{method:'linkedin'}); }
+      else if(/^#/.test(href)) p.click_type='jump_link';
+      else p.click_type='outbound_link';
+    }
+    if(el.id==='export-pdf-btn') gtag('event','pdf_export');
+    gtag('event','ui_click',p);
+  },true);
+  // Sliders: one event per finished drag, not per pixel.
+  document.addEventListener('change',function(e){
+    if(!e.isTrusted) return;
+    var el=e.target; if(!el.matches || !el.matches('input[type="range"]')) return;
+    var p=where(el);
+    var lab=el.id && document.querySelector('label[for="'+el.id+'"]');
+    p.click_label=((lab&&lab.textContent)||el.getAttribute('aria-label')||el.id||'slider').replace(/\s+/g,' ').trim().replace(/\s*[$\d].*$/,'').slice(0,80);
+    p.click_type='slider';
+    gtag('event','ui_click',p);
+  },true);
+  // Which case studies people actually reach.
+  if('IntersectionObserver' in window){
+    var seen={};
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        var k=en.target.getAttribute('data-case');
+        if(en.isIntersecting && k && !seen[k]){ seen[k]=1; gtag('event','case_view',{click_case:k}); }
+      });
+    },{threshold:.35});
+    var watch=function(){ document.querySelectorAll('.case[data-case]').forEach(function(c){ io.observe(c); }); };
+    var start=function(){ watch(); new MutationObserver(watch).observe(document.body,{childList:true,subtree:true}); };
+    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+  }
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
